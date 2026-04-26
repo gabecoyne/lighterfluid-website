@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#faf8f3">
+
+  {%- comment -%} Per-page SEO + JSON-LD (context-aware via page.handle / template) {%- endcomment -%}
+  {%- render 'seo-meta' -%}
+
+  {%- comment -%} Fonts + icons {%- endcomment -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,350;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,350&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
+
+  {%- comment -%} Theme stylesheets — tokens first, then site styles {%- endcomment -%}
+  <link rel="stylesheet" href="{{ 'tokens.css' | asset_url }}">
+  <link rel="stylesheet" href="{{ 'site.css' | asset_url }}">
+
+  {%- comment -%} Shopify reserves content_for_header — keep it for analytics, app injections {%- endcomment -%}
+  {{ content_for_header }}
+</head>
+
+<body class="page">
+
+  {%- section 'header' -%}
+
+  <main id="main-content" role="main">
+    {{ content_for_layout }}
+  </main>
+
+  {%- section 'footer' -%}
+
+</body>
+</html>

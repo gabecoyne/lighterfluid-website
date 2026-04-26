@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Shopify CLI artifacts
+.shopify/
+.shopifyignore.local
+
+# Node (only if added later)
+node_modules/
+.env
+.env.local

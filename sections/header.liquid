@@ -1,0 +1,53 @@
+{%- comment -%}
+  Site nav. Static — no schema, no editing in admin.
+  Active state derived from current template.
+{%- endcomment -%}
+
+{%- liquid
+  assign tmpl = template.name | default: 'index'
+  assign suffix = template.suffix | default: ''
+  if suffix != ''
+    assign current = suffix
+  elsif tmpl == 'index'
+    assign current = 'home'
+  else
+    assign current = page.handle
+  endif
+-%}
+
+<nav class="site-nav" aria-label="Primary">
+  <div class="site-nav__inner">
+    <a class="logo" href="{{ routes.root_url }}">
+      <i class="ri-fire-line" aria-hidden="true"></i>
+      <span>Lighter Fluid</span>
+    </a>
+
+    <button
+      class="nav-toggle"
+      aria-label="Open menu"
+      aria-controls="site-nav-menu"
+      aria-expanded="false"
+      onclick="var u=document.getElementById('site-nav-menu');var e=this.getAttribute('aria-expanded')==='true';this.setAttribute('aria-expanded',!e);u.classList.toggle('is-open');">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <ul id="site-nav-menu">
+      <li><a class="nav-link{% if current == 'home' %} is-active{% endif %}" href="{{ routes.root_url }}">Home</a></li>
+      <li><a class="nav-link{% if current == 'implementation' %} is-active{% endif %}" href="{{ routes.root_url }}pages/implementation">AI Install</a></li>
+      <li><a class="nav-link{% if current == 'coaching' %} is-active{% endif %}" href="{{ routes.root_url }}pages/coaching">Founder Coaching</a></li>
+      <li><a class="nav-link{% if current == 'work' %} is-active{% endif %}" href="{{ routes.root_url }}pages/work">Work</a></li>
+      <li><a class="nav-link{% if current == 'about' %} is-active{% endif %}" href="{{ routes.root_url }}pages/about">About</a></li>
+    </ul>
+
+    <a class="nav-cta" href="{{ routes.root_url }}pages/contact">Book a call</a>
+  </div>
+</nav>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": []
+}
+{% endschema %}

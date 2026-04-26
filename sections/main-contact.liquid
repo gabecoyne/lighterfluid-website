@@ -1,0 +1,128 @@
+{%- comment -%}
+  main-contact.liquid — body content for the Contact page.
+  Edit this file to update the page. No section editor in admin.
+  SEO + JSON-LD live in snippets/seo-meta.liquid (context-aware via page.handle).
+{%- endcomment -%}
+
+<header class="hero short">
+    <div class="container">
+      <span class="eyebrow"><span class="dot"></span> Contact · Free 30-minute call · Direct line</span>
+      <h1>Tell us what you're working on.<br/><em>If we're a fit, you'll know in twenty minutes.</em></h1>
+      <p class="lede">No discovery deck. No procurement form. Just a conversation. We read every form personally and reply within two business days.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="row-2col asym">
+        <div>
+          <h2 style="font-family:var(--lf-serif);font-weight:350;font-size:32px;line-height:1.15;letter-spacing:-0.015em;color:var(--lf-ink);">Tell us about your business.</h2>
+          <p style="margin-top:24px;font-size:16px;line-height:1.65;color:var(--lf-ink-soft);max-width:480px;">
+            We read every form personally. Within two business days you'll get a reply from Gabe or Collin — either confirmation that we're a fit, or a candid note about why we're not (and a referral if we know someone better-suited).
+          </p>
+
+          <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--lf-rule);">
+            <span class="eyebrow"><span class="dot"></span> Or email directly</span>
+            <p style="margin-top:18px;font-family:var(--lf-serif);font-size:18px;line-height:1.6;">
+              <a class="inline-link" href="mailto:gabe@lighterfluid.co">gabe@lighterfluid.co</a><br />
+              <a class="inline-link" href="mailto:collin@lighterfluid.co">collin@lighterfluid.co</a>
+            </p>
+          </div>
+
+          <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--lf-rule);">
+            <span class="eyebrow"><span class="dot"></span> Engagement minimums</span>
+            <p style="margin-top:18px;font-size:14px;line-height:1.65;color:var(--lf-graphite);max-width:380px;">
+              Implementations start at $10K/mo for 90 days. Coaching is $4K/mo, four slots. We don't run on hourly billing. We're consumer / DTC focused and won't take work in regulated industries (healthcare, financial services, manufacturing) unless you have a strong operator already inside.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <form class="form" onsubmit="event.preventDefault();alert('Form is a mockup — wire to Formspree or your CRM before going live.');">
+            <div class="field">
+              <label for="name">Your name</label>
+              <input id="name" type="text" required />
+            </div>
+
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" type="email" required />
+            </div>
+
+            <div class="field">
+              <label for="company">Company</label>
+              <input id="company" type="text" required />
+            </div>
+
+            <div class="field">
+              <label for="role">Your role</label>
+              <input id="role" type="text" placeholder="Founder / CEO / VP Growth / etc." />
+            </div>
+
+            <div class="field">
+              <label for="size">Annual revenue range</label>
+              <select id="size">
+                <option value="">Select range</option>
+                <option>Under $5M</option>
+                <option>$5M – $15M</option>
+                <option>$15M – $50M</option>
+                <option>$50M – $150M</option>
+                <option>$150M+</option>
+                <option>Pre-revenue / haven't launched</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="interest">What you're interested in</label>
+              <select id="interest">
+                <option value="">Select</option>
+                <option>Implementation (90 days)</option>
+                <option>Coaching ($4K/mo)</option>
+                <option>Not sure — let's talk</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="capability">Capability area (if relevant)</label>
+              <select id="capability">
+                <option value="">Select if known</option>
+                <option>Brand</option>
+                <option>Marketing</option>
+                <option>Ecom</option>
+                <option>Operations</option>
+                <option>Product</option>
+                <option>More than one</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="message">What's on your mind?</label>
+              <textarea id="message" placeholder="The 1-3 things you'd want us to look at if we were sitting across the table. Don't polish."></textarea>
+            </div>
+
+            <div class="submit-row">
+              <button class="btn ember no-arrow" type="submit">Send →</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sm rule">
+    <div class="container narrow">
+      <span class="eyebrow"><span class="dot"></span> What happens after you submit</span>
+      <div class="prose" style="margin-top:24px;">
+        <p>Within two business days you'll get a personal reply from Gabe or Collin. If we're a fit, we'll schedule a 30-minute video call. If we're not, we'll tell you why and refer you on. Either way, you'll get a real answer from a real person.</p>
+        <p>If we move forward, you'll get a one-page proposal within a week of the call. For an implementation, we start within two weeks of countersignature. For coaching, we book your first session inside seven days.</p>
+      </div>
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "Main · Contact",
+  "settings": []
+}
+{% endschema %}

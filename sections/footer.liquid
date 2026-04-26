@@ -1,0 +1,52 @@
+{%- comment -%} Static footer. No schema, no admin editing. {%- endcomment -%}
+
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__inner">
+    <div>
+      <a class="logo" href="{{ routes.root_url }}" style="display:flex;align-items:center;gap:10px;font-family:var(--lf-serif);font-size:18px;color:var(--lf-ink);">
+        <i class="ri-fire-line" style="font-size:20px;color:var(--lf-ember);line-height:1;" aria-hidden="true"></i>
+        Lighter Fluid
+      </a>
+      <p class="blurb">Operator-led AI consulting. We build the infrastructure your operators will actually use.</p>
+    </div>
+
+    <div>
+      <h4>Work with us</h4>
+      <ul>
+        <li><a href="{{ routes.root_url }}pages/implementation">AI Install</a></li>
+        <li><a href="{{ routes.root_url }}pages/coaching">Founder Coaching</a></li>
+        <li><a href="{{ routes.root_url }}pages/contact">Book a call</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="{{ routes.root_url }}pages/about">About</a></li>
+        <li><a href="{{ routes.root_url }}pages/work">Work</a></li>
+        <li><a href="{{ routes.root_url }}pages/approach">Approach</a></li>
+        <li><a href="{{ routes.root_url }}pages/contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Founders</h4>
+      <ul>
+        <li><a href="mailto:gabe@lighterfluid.co">gabe@lighterfluid.co</a></li>
+        <li><a href="mailto:collin@lighterfluid.co">collin@lighterfluid.co</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="site-footer__meta">
+    <span>© {{ 'now' | date: '%Y' }} Lighter Fluid · LLC</span>
+    <span>Built operator-side</span>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": []
+}
+{% endschema %}

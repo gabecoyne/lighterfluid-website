@@ -1,0 +1,75 @@
+/* ==========================================================================
+   Lighter Fluid — Design Tokens (mirror of brand/tokens.css)
+   ========================================================================== */
+
+:root {
+  /* Surfaces — light */
+  --lf-paper:        #faf8f3;
+  --lf-paper-deep:   #f3efe6;
+  --lf-paper-quiet:  #ebe6db;
+
+  /* Surfaces — dark (charcoal: warm editorial; black: cold high-contrast) */
+  --lf-charcoal:     #1d1916;
+  --lf-charcoal-soft:#2a2520;
+  --lf-black:        #0a0908;
+  --lf-black-soft:   #14110e;
+
+  /* Inverse text + rule tokens for dark surfaces */
+  --lf-on-dark:      #faf8f3;
+  --lf-on-dark-soft: #d8d0c1;
+  --lf-on-dark-mute: #8e8675;
+  --lf-rule-dark:    #2e2920;
+  --lf-rule-darker:  #1a1714;
+
+  /* Ink */
+  --lf-ink:          #131313;
+  --lf-ink-soft:     #2a2622;
+  --lf-graphite:     #555049;
+  --lf-mute:         #8a8278;
+  --lf-rule:         #e6e0d4;
+  --lf-rule-quiet:   #efeae0;
+
+  /* Accent */
+  --lf-ember:        #c4471c;
+  --lf-ember-deep:   #9c3815;
+  --lf-ember-soft:   #f5e6dd;
+
+  /* States */
+  --lf-positive:     #3a6b3a;
+  --lf-warning:      #b08418;
+  --lf-negative:     #9c2c1c;
+
+  /* Type */
+  --lf-serif:        'Fraunces', Georgia, serif;
+  --lf-sans:         'Inter', -apple-system, system-ui, sans-serif;
+  --lf-mono:         'JetBrains Mono', ui-monospace, monospace;
+
+  --lf-display:      clamp(56px, 7vw, 96px);
+  --lf-h1:           clamp(40px, 5vw, 64px);
+  --lf-h2:           clamp(28px, 3.2vw, 40px);
+  --lf-h3:           clamp(22px, 2.2vw, 28px);
+  --lf-h4:           18px;
+  --lf-body-lg:      19px;
+  --lf-body:         16px;
+  --lf-small:        14px;
+  --lf-meta:         12px;
+
+  --lf-lh-display:   0.98;
+  --lf-lh-heading:   1.08;
+  --lf-lh-body:      1.55;
+  --lf-lh-meta:      1.4;
+
+  /* Space */
+  --lf-section-y:    128px;
+  --lf-section-y-sm: 96px;
+  --lf-page-gutter:  clamp(24px, 5vw, 80px);
+  --lf-measure:      68ch;
+  --lf-measure-narrow: 52ch;
+
+  /* Layout */
+  --lf-max:          1280px;
+  --lf-max-narrow:   840px;
+
+  /* Motion */
+  --lf-ease:         cubic-bezier(0.2, 0.65, 0.2, 1);
+}

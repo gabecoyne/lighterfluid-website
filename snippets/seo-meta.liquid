@@ -1,0 +1,143 @@
+{%- comment -%}
+  Context-aware SEO + Open Graph + Twitter Card + JSON-LD.
+
+  Renders the right metadata based on the current template / page handle.
+  Called from layout/theme.liquid head — no parameters needed.
+
+  When a new page is added: add a {% when 'handle' %} branch below.
+{%- endcomment -%}
+
+{%- assign domain = 'https://lighterfluid.co' -%}
+{%- assign og_image = 'https://lighterfluid.co/cdn/shop/files/og-image.jpg' -%}
+
+{%- liquid
+  if template.name == 'index'
+    assign page_handle = 'home'
+  else
+    assign page_handle = page.handle
+  endif
+-%}
+
+{%- case page_handle -%}
+
+  {%- when 'home' -%}
+    {%- assign meta_title = 'Lighter Fluid — Operator-led AI consulting for consumer brands' -%}
+    {%- assign meta_description = 'Lighter Fluid installs AI skills inside consumer brands in 90 days. Founded by operators behind Stix Golf ($100M+ lifetime sales) and Host Modern ($4.5M Year 1, 10%+ profit). Implementation from $10K/mo. Founder coaching at $4K/mo.' -%}
+    {%- assign meta_path = '/' -%}
+
+  {%- when 'implementation' -%}
+    {%- assign meta_title = 'AI Install — Lighter Fluid · 90-day install · From $10K/mo' -%}
+    {%- assign meta_description = 'A productized 90-day AI install for consumer brands. Twenty-plus skills across six capability areas. Pricing from $10K/mo with $5K per scope expansion. Standards layer included.' -%}
+    {%- assign meta_path = '/pages/implementation' -%}
+
+  {%- when 'coaching' -%}
+    {%- assign meta_title = 'Founder Coaching — Lighter Fluid · $4K/mo · Weekly working sessions' -%}
+    {%- assign meta_description = 'General startup coaching for consumer-brand founders. Weekly working sessions on strategy, fundraising, product, growth, hiring, and operations. AI fluency woven in. $4K per month, four slots only.' -%}
+    {%- assign meta_path = '/pages/coaching' -%}
+
+  {%- when 'work' -%}
+    {%- assign meta_title = 'Work — Lighter Fluid · Stix Golf · Host Modern · Influence Mobile' -%}
+    {%- assign meta_description = 'The case studies are the businesses we have built. Stix Golf — $100M+ lifetime sales, Series A & B. Host Modern — $4.5M Year 1, 10%+ profit margin. Influence Mobile — $200M+ lifetime revenue, 100M+ app installs.' -%}
+    {%- assign meta_path = '/pages/work' -%}
+
+  {%- when 'about' -%}
+    {%- assign meta_title = 'About — Lighter Fluid · Two operators, five businesses' -%}
+    {%- assign meta_description = 'Lighter Fluid is run by Gabe Coyne and Collin Duff. Five businesses between us, plus a venture studio role at Prota Ventures (innovation consulting for Exelon, ADP, Citi Bank).' -%}
+    {%- assign meta_path = '/pages/about' -%}
+
+  {%- when 'contact' -%}
+    {%- assign meta_title = 'Book a call — Lighter Fluid' -%}
+    {%- assign meta_description = 'Free 30-minute call. If we are a fit, you will know in twenty minutes. We read every form personally and reply within two business days.' -%}
+    {%- assign meta_path = '/pages/contact' -%}
+
+  {%- else -%}
+    {%- assign meta_title = page.title | default: shop.name -%}
+    {%- assign meta_description = page.content | strip_html | truncate: 160 | default: shop.description -%}
+    {%- assign meta_path = canonical_url | remove: domain | default: '/' -%}
+
+{%- endcase -%}
+
+{%- assign canonical = domain | append: meta_path -%}
+
+<title>{{ meta_title }}</title>
+<meta name="description" content="{{ meta_description | escape }}">
+<link rel="canonical" href="{{ canonical }}">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ meta_title | escape }}">
+<meta property="og:description" content="{{ meta_description | escape }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:image" content="{{ og_image }}">
+<meta property="og:site_name" content="Lighter Fluid">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ meta_title | escape }}">
+<meta name="twitter:description" content="{{ meta_description | escape }}">
+<meta name="twitter:image" content="{{ og_image }}">
+
+<meta name="author" content="Lighter Fluid">
+
+{%- comment -%} Organization schema — emitted on every page {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Lighter Fluid",
+  "alternateName": "Lighter Fluid LLC",
+  "url": "https://lighterfluid.co/",
+  "logo": "https://lighterfluid.co/cdn/shop/files/lighter-fluid-logo.png",
+  "description": "Operator-led AI consulting. We install AI infrastructure inside consumer brands in 90 days, plus weekly coaching for founders.",
+  "founder": [
+    {"@type": "Person", "name": "Gabe Coyne", "jobTitle": "Founder", "email": "gabe@lighterfluid.co"},
+    {"@type": "Person", "name": "Collin Duff", "jobTitle": "Co-Founder", "email": "collin@lighterfluid.co"}
+  ],
+  "foundingDate": "2024",
+  "knowsAbout": [
+    "AI consulting",
+    "Direct-to-consumer ecommerce",
+    "Conversion rate optimization",
+    "Media buying",
+    "Brand strategy",
+    "Founder coaching"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "Sales",
+    "email": "gabe@lighterfluid.co",
+    "areaServed": "US",
+    "availableLanguage": "en"
+  }
+}
+</script>
+
+{%- comment -%} Per-page schemas {%- endcomment -%}
+{%- case page_handle -%}
+
+  {%- when 'home' -%}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"Lighter Fluid","url":"https://lighterfluid.co/","description":"Operator-led AI consulting. We install AI infrastructure inside consumer brands in 90 days."}
+</script>
+
+  {%- when 'implementation' -%}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Service","name":"AI Implementation","provider":{"@type":"Organization","name":"Lighter Fluid","url":"https://lighterfluid.co/"},"description":"A 90-day project that installs AI skills end-to-end inside a consumer brand. Pricing scales by scope from $10K/mo (base) to $25K/mo (deep).","areaServed":"United States","serviceType":"AI Consulting","audience":{"@type":"BusinessAudience","audienceType":"Consumer brand operators ($5M-$200M revenue)"},"offers":[{"@type":"Offer","name":"Base","description":"Focused 90-day install — 4 to 6 skills in one or two capability areas.","price":"30000","priceCurrency":"USD","priceSpecification":{"@type":"UnitPriceSpecification","price":"10000","priceCurrency":"USD","unitText":"MONTH"}},{"@type":"Offer","name":"Expanded","description":"7 to 10 skills, two or three capability areas.","price":"45000","priceCurrency":"USD","priceSpecification":{"@type":"UnitPriceSpecification","price":"15000","priceCurrency":"USD","unitText":"MONTH"}},{"@type":"Offer","name":"Deep","description":"Multi-capability, 10+ skills, or includes custom skill build.","price":"60000","priceCurrency":"USD","priceSpecification":{"@type":"UnitPriceSpecification","price":"20000","priceCurrency":"USD","unitText":"MONTH"}},{"@type":"Offer","name":"Premium","description":"Maximum reasonable scope inside 90 days — full operating system + custom skill development.","price":"75000","priceCurrency":"USD","priceSpecification":{"@type":"UnitPriceSpecification","price":"25000","priceCurrency":"USD","unitText":"MONTH"}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does Lighter Fluid's AI implementation cost?","acceptedAnswer":{"@type":"Answer","text":"From $10,000 per month for a 90-day install. The base pack ($30,000 total) covers a focused 4-6 skill scope in one or two capability areas. Each additional scope expansion is $5,000 per month."}},{"@type":"Question","name":"What capability areas does Lighter Fluid cover?","acceptedAnswer":{"@type":"Answer","text":"Six capability areas: Brand, Marketing, Ecom, Operations, Product, and Custom (new skills built for your business)."}},{"@type":"Question","name":"How long does a Lighter Fluid implementation take?","acceptedAnswer":{"@type":"Answer","text":"90 days. Same shape every time: kickoff in week 0, read and decide in weeks 1-2, build and shadow in weeks 3-7, live and tune in weeks 8-10, handoff in weeks 11-12."}},{"@type":"Question","name":"What is included in every implementation?","acceptedAnswer":{"@type":"Answer","text":"The standards layer: framework library, brand and copy standards, project conventions, a wiki hub, operating tooling, and team training."}}]}
+</script>
+
+  {%- when 'coaching' -%}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Service","name":"Founder Coaching","provider":{"@type":"Organization","name":"Lighter Fluid","url":"https://lighterfluid.co/"},"description":"Weekly working sessions for consumer-brand founders. General startup coaching covering strategy, fundraising, product, growth, hiring, and operations. AI fluency woven in.","audience":{"@type":"BusinessAudience","audienceType":"Consumer-brand founders ($0-$5M revenue, pre-seed through Series A)"},"offers":{"@type":"Offer","name":"Founder Coaching Retainer","description":"One 60-minute session per week, video. Slack access between sessions. Month-to-month with sixty-day notice.","priceSpecification":{"@type":"UnitPriceSpecification","price":"4000","priceCurrency":"USD","unitText":"MONTH"}}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does Lighter Fluid coaching cost?","acceptedAnswer":{"@type":"Answer","text":"$4,000 per month. One 60-minute working session per week, video. Slack access between sessions. Month-to-month with sixty-day notice."}},{"@type":"Question","name":"Is Lighter Fluid coaching focused on AI?","acceptedAnswer":{"@type":"Answer","text":"No. Lighter Fluid coaching is general startup coaching for consumer-brand founders. AI fluency is woven in because that is how we operate, but it is not the curriculum."}},{"@type":"Question","name":"Who is Lighter Fluid coaching for?","acceptedAnswer":{"@type":"Answer","text":"Consumer-brand founders building DTC, omnichannel, or retail-bound products. Pre-seed through Series A. Typically $0-$5 million in revenue."}},{"@type":"Question","name":"How many coaching clients does Lighter Fluid take?","acceptedAnswer":{"@type":"Answer","text":"Four at a time. The capacity cap is the product. We don't expand the cap to take a fifth."}}]}
+</script>
+
+  {%- when 'about' -%}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"AboutPage","mainEntity":[{"@type":"Person","name":"Gabe Coyne","jobTitle":"Founder, Lighter Fluid","email":"gabe@lighterfluid.co","worksFor":{"@type":"Organization","name":"Lighter Fluid"}},{"@type":"Person","name":"Collin Duff","jobTitle":"Co-Founder, Lighter Fluid","email":"collin@lighterfluid.co","worksFor":{"@type":"Organization","name":"Lighter Fluid"}}]}
+</script>
+
+{%- endcase -%}

@@ -1,0 +1,1092 @@
+/* ==========================================================================
+   Lighter Fluid — Site Stylesheet
+   Imports tokens.css + adds site-wide layout & components.
+   Single shared stylesheet — every page links this one file.
+   ========================================================================== */
+
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--lf-paper);
+  color: var(--lf-ink);
+  font-family: var(--lf-sans);
+  font-size: var(--lf-body);
+  line-height: var(--lf-lh-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+img, svg { max-width: 100%; display: block; }
+
+/* ==========================================================================
+   Site nav
+   ========================================================================== */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250, 248, 243, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--lf-rule-quiet);
+}
+.site-nav__inner {
+  max-width: var(--lf-max);
+  margin: 0 auto;
+  padding: 18px var(--lf-page-gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+.site-nav .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--lf-serif);
+  font-weight: 400;
+  font-size: 19px;
+  letter-spacing: 0.005em;
+  color: var(--lf-ink);
+}
+.site-nav .logo i {
+  font-size: 22px;
+  color: var(--lf-ember);
+  line-height: 1;
+  transition: transform 220ms var(--lf-ease);
+}
+.site-nav .logo:hover i {
+  transform: rotate(-6deg) scale(1.05);
+}
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.site-nav a.nav-link {
+  font-family: var(--lf-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--lf-graphite);
+  transition: color 220ms var(--lf-ease);
+  position: relative;
+}
+.site-nav a.nav-link:hover { color: var(--lf-ink); }
+.site-nav a.nav-link.is-active { color: var(--lf-ink); }
+.site-nav a.nav-link.is-active::after {
+  content: ""; position: absolute;
+  left: 0; right: 0; bottom: -22px;
+  height: 1px; background: var(--lf-ember);
+}
+.site-nav .nav-cta {
+  padding: 10px 18px;
+  background: var(--lf-ink);
+  color: var(--lf-paper);
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 220ms var(--lf-ease);
+}
+.site-nav .nav-cta:hover { background: var(--lf-ember); }
+
+@media (max-width: 720px) {
+  .site-nav ul { display: none; }
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.site-footer {
+  border-top: 1px solid var(--lf-rule);
+  padding: 64px var(--lf-page-gutter) 32px;
+  margin-top: var(--lf-section-y);
+  background: var(--lf-paper);
+}
+.site-footer__inner {
+  max-width: var(--lf-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+.site-footer h4 {
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lf-mute);
+  margin-bottom: 16px;
+}
+.site-footer ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.site-footer a { font-size: 14px; color: var(--lf-graphite); transition: color 220ms var(--lf-ease); }
+.site-footer a:hover { color: var(--lf-ember); }
+.site-footer .blurb {
+  max-width: 320px;
+  font-family: var(--lf-serif);
+  font-style: italic;
+  font-weight: 350;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--lf-graphite);
+  margin-top: 16px;
+}
+.site-footer__meta {
+  max-width: var(--lf-max);
+  margin: 0 auto;
+  padding-top: 32px;
+  border-top: 1px solid var(--lf-rule-quiet);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lf-mute);
+}
+@media (max-width: 720px) {
+  .site-footer__inner { grid-template-columns: 1fr; gap: 32px; }
+  .site-footer__meta { flex-direction: column; gap: 8px; }
+}
+
+/* ==========================================================================
+   Page primitives
+   ========================================================================== */
+.page {
+  min-height: 100vh;
+}
+.container {
+  max-width: var(--lf-max);
+  margin: 0 auto;
+  padding: 0 var(--lf-page-gutter);
+}
+.container.narrow { max-width: var(--lf-max-narrow); }
+.section { padding: var(--lf-section-y) 0; }
+.section.sm { padding: var(--lf-section-y-sm) 0; }
+.rule { border-top: 1px solid var(--lf-rule); }
+
+/* ==========================================================================
+   Hero (used on home + page heroes)
+   ========================================================================== */
+.hero {
+  padding: 128px 0 96px;
+  border-bottom: 1px solid var(--lf-rule);
+}
+.hero .eyebrow { margin-bottom: 28px; }
+.hero h1 {
+  font-family: var(--lf-serif);
+  font-weight: 350;
+  font-size: var(--lf-display);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  max-width: 980px;
+  color: var(--lf-ink);
+  text-wrap: balance;
+}
+.hero h1 em {
+  font-style: italic;
+  font-weight: 350;
+  color: var(--lf-ember);
+}
+.hero .lede {
+  font-family: var(--lf-serif);
+  font-weight: 350;
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.45;
+  color: var(--lf-graphite);
+  max-width: 600px;
+  margin-top: 36px;
+  text-wrap: pretty;
+}
+.hero .actions {
+  margin-top: 48px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.hero.short {
+  padding: 88px 0 72px;
+}
+.hero.short h1 {
+  font-size: var(--lf-h1);
+  line-height: 1.05;
+}
+
+/* ==========================================================================
+   Eyebrow
+   ========================================================================== */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lf-mute);
+}
+.eyebrow .dot {
+  width: 6px; height: 6px;
+  background: var(--lf-ember);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: var(--lf-ink);
+  color: var(--lf-paper);
+  font-family: var(--lf-sans);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  border: 1px solid var(--lf-ink);
+  border-radius: 0;
+  transition: background 220ms var(--lf-ease), border-color 220ms var(--lf-ease);
+  cursor: pointer;
+}
+.btn:hover { background: var(--lf-ember); border-color: var(--lf-ember); }
+.btn::after { content: "→"; margin-left: 4px; }
+.btn.no-arrow::after { content: ""; margin: 0; }
+.btn.ghost {
+  background: transparent;
+  color: var(--lf-ink);
+}
+.btn.ghost:hover {
+  background: var(--lf-ink);
+  color: var(--lf-paper);
+}
+.btn.ember {
+  background: var(--lf-ember);
+  border-color: var(--lf-ember);
+}
+.btn.ember:hover {
+  background: var(--lf-ember-deep);
+  border-color: var(--lf-ember-deep);
+}
+
+/* ==========================================================================
+   Inline link
+   ========================================================================== */
+.inline-link {
+  color: var(--lf-ink);
+  background-image: linear-gradient(var(--lf-ember), var(--lf-ember));
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  padding-bottom: 1px;
+  transition: color 220ms var(--lf-ease);
+}
+.inline-link:hover { color: var(--lf-ember); }
+
+/* ==========================================================================
+   Section heading row
+   ========================================================================== */
+.section-head {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 64px;
+  margin-bottom: 72px;
+  align-items: end;
+}
+.section-head .label {
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lf-mute);
+  padding-top: 10px;
+  border-top: 1px solid var(--lf-ink);
+  display: inline-block;
+  align-self: start;
+}
+.section-head h2 {
+  font-family: var(--lf-serif);
+  font-weight: 350;
+  font-size: var(--lf-h2);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: var(--lf-ink);
+  max-width: 800px;
+  text-wrap: balance;
+}
+.section-head h2 em { font-style: italic; color: var(--lf-ember); }
+
+@media (max-width: 720px) {
+  .section-head { grid-template-columns: 1fr; gap: 24px; }
+}
+
+/* ==========================================================================
+   Cards
+   ========================================================================== */
+.card {
+  background: var(--lf-paper);
+  border: 1px solid var(--lf-rule);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: border-color 220ms var(--lf-ease);
+}
+.card:hover { border-color: var(--lf-ink); }
+.card .num {
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lf-mute);
+}
+.card h3 {
+  font-family: var(--lf-serif);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--lf-ink);
+}
+.card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--lf-graphite);
+}
+.card .more {
+  margin-top: auto;
+  padding-top: 20px;
+  font-family: var(--lf-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--lf-ink);
+}
+.card .more::after { content: " →"; }
+
+/* ==========================================================================
+   Tag
+   ========================================================================== */
+.tag {
+  display: inline-block;
+  padding: 5px 10px;
+  font-family: var(--lf-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lf-graphite);
+  border: 1px solid var(--lf-rule);
+}
+
+/* ==========================================================================
+   Pull-quote
+   ========================================================================== */
+.pullquote {
+  font-family: var(--lf-serif);
+  font-weight: 350;
+  font-style: italic;
+  font-size: 28px;
+  line-height: 1.35;
+  color: var(--lf-ink);
+  border-left: 2px solid var(--lf-ember);
+  padding-left: 24px;
+  max-width: 720px;
+  margin: 32px 0;
+  text-wrap: pretty;
+}
+
+/* ==========================================================================
+   Stat block
+   ========================================================================== */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--lf-rule);
+  border-bottom: 1px solid var(--lf-rule);
+}
+.stat {
+  padding: 32px 40px;
+  border-right: 1px solid var(--lf-rule);
+}
+.stat:first-child { padding-left: 0; }
+.stat:last-child { border-right: 0; padding-right: 0; }
+.stat .label {
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lf-mute);
+  margin-bottom: 8px;
+}
+.stat .val {
+  font-family: var(--lf-serif);
+  font-weight: 350;
+  font-size: 40px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--lf-ink);
+}
+.stat .val .small {
+  display: block;
+  font-family: var(--lf-sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--lf-graphite);
+  margin-top: 8px;
+  letter-spacing: 0;
+}
+@media (max-width: 720px) {
+  .stats { grid-template-columns: 1fr; }
+  .stat { border-right: 0; border-bottom: 1px solid var(--lf-rule); padding-left: 24px; padding-right: 24px; }
+  .stat:last-child { border-bottom: 0; }
+}
+
+/* ==========================================================================
+   Two-column editorial row
+   ========================================================================== */
+.row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+}
+.row-2col.asym { grid-template-columns: 5fr 7fr; }
+.row-2col p { font-size: 16px; line-height: 1.65; color: var(--lf-ink-soft); }
+.row-2col p + p { margin-top: 14px; }
+@media (max-width: 720px) {
+  .row-2col, .row-2col.asym { grid-template-columns: 1fr; gap: 32px; }
+}
+
+/* ==========================================================================
+   Table-style row (used on services, work pages)
+   ========================================================================== */
+.row-list {
+  border-top: 1px solid var(--lf-rule);
+}
+.row-list .row {
+  display: grid;
+  grid-template-columns: 80px 2fr 3fr 1fr;
+  gap: 32px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--lf-rule);
+  align-items: start;
+  transition: padding 220ms var(--lf-ease);
+}
+.row-list .row:hover { padding-left: 12px; }
+.row-list .row .num {
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lf-mute);
+  padding-top: 6px;
+}
+.row-list .row h3 {
+  font-family: var(--lf-serif);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--lf-ink);
+}
+.row-list .row .body {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--lf-graphite);
+}
+.row-list .row .meta {
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lf-mute);
+  text-align: right;
+}
+@media (max-width: 720px) {
+  .row-list .row { grid-template-columns: 1fr; gap: 12px; }
+  .row-list .row .meta { text-align: left; }
+}
+
+/* ==========================================================================
+   Long-form prose
+   ========================================================================== */
+.prose {
+  max-width: var(--lf-measure);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--lf-ink-soft);
+  text-wrap: pretty;
+}
+.prose p + p { margin-top: 18px; }
+.prose h2 {
+  font-family: var(--lf-serif);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--lf-ink);
+  margin-top: 64px;
+  margin-bottom: 18px;
+}
+.prose h3 {
+  font-family: var(--lf-serif);
+  font-weight: 400;
+  font-size: 22px;
+  margin-top: 40px;
+  margin-bottom: 14px;
+  color: var(--lf-ink);
+}
+.prose em { color: var(--lf-ember); font-style: italic; }
+.prose ul {
+  margin: 14px 0 14px 20px;
+  list-style: none;
+}
+.prose ul li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 10px;
+}
+.prose ul li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--lf-ember);
+}
+
+/* ==========================================================================
+   Founder portrait blocks
+   ========================================================================== */
+.founders {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 64px;
+}
+.founder {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.founder .portrait {
+  aspect-ratio: 4 / 5;
+  background: var(--lf-paper-deep);
+  border: 1px solid var(--lf-rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lf-mute);
+}
+.founder h3 {
+  font-family: var(--lf-serif);
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+  color: var(--lf-ink);
+}
+.founder .role {
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lf-graphite);
+  margin-top: -12px;
+}
+.founder p { font-size: 15px; line-height: 1.65; color: var(--lf-ink-soft); }
+@media (max-width: 720px) {
+  .founders { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   CTA block (page closers)
+   ========================================================================== */
+.cta-block {
+  border: 1px solid var(--lf-ink);
+  padding: 64px 48px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 48px;
+  align-items: center;
+  background: var(--lf-paper-deep);
+}
+.cta-block h2 {
+  font-family: var(--lf-serif);
+  font-weight: 350;
+  font-size: 36px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--lf-ink);
+  max-width: 580px;
+  text-wrap: balance;
+}
+.cta-block h2 em { font-style: italic; color: var(--lf-ember); }
+.cta-block .actions { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+@media (max-width: 720px) {
+  .cta-block { grid-template-columns: 1fr; padding: 36px 24px; }
+}
+
+/* ==========================================================================
+   3-up grid
+   ========================================================================== */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 880px) {
+  .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   Form (used on contact page)
+   ========================================================================== */
+.form { max-width: 560px; display: flex; flex-direction: column; gap: 24px; }
+.form .field { display: flex; flex-direction: column; gap: 6px; }
+.form label {
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lf-mute);
+}
+.form input,
+.form textarea,
+.form select {
+  background: var(--lf-paper);
+  border: 1px solid var(--lf-rule);
+  padding: 14px 16px;
+  font-family: var(--lf-sans);
+  font-size: 15px;
+  color: var(--lf-ink);
+  border-radius: 0;
+  transition: border-color 220ms var(--lf-ease);
+}
+.form input:focus, .form textarea:focus, .form select:focus {
+  outline: none;
+  border-color: var(--lf-ember);
+}
+.form textarea { min-height: 140px; resize: vertical; }
+.form .submit-row { margin-top: 8px; }
+
+/* ==========================================================================
+   Editorial decoration: drop-cap (rare, used on about/long-form)
+   ========================================================================== */
+.drop-cap::first-letter {
+  font-family: var(--lf-serif);
+  font-weight: 350;
+  font-size: 4em;
+  float: left;
+  line-height: 0.85;
+  margin-right: 12px;
+  margin-top: 6px;
+  color: var(--lf-ember);
+}
+
+/* ==========================================================================
+   Dark sections — charcoal (warm, editorial) and black (cold, high-contrast)
+   Apply by adding `.dark` or `.black` to a `.section` element.
+   ========================================================================== */
+.section.dark,
+.section.black {
+  color: var(--lf-on-dark);
+}
+.section.dark { background: var(--lf-charcoal); }
+.section.black { background: var(--lf-black); }
+
+/* Inverse rules for headings */
+.section.dark .section-head h2,
+.section.black .section-head h2,
+.section.dark h2, .section.dark h3, .section.dark h4,
+.section.black h2, .section.black h3, .section.black h4 {
+  color: var(--lf-on-dark);
+}
+.section.dark .section-head h2 em,
+.section.black .section-head h2 em,
+.section.dark h2 em, .section.dark h3 em, .section.dark h4 em,
+.section.black h2 em, .section.black h3 em, .section.black h4 em {
+  color: var(--lf-ember);
+}
+
+/* Inverse rules for the section-head label */
+.section.dark .section-head .label,
+.section.black .section-head .label {
+  color: var(--lf-on-dark-mute);
+  border-top-color: var(--lf-on-dark);
+}
+
+/* Inverse rules for prose / paragraphs */
+.section.dark p,
+.section.black p {
+  color: var(--lf-on-dark-soft);
+}
+.section.dark .lede,
+.section.black .lede,
+.section.dark .hero .lede,
+.section.black .hero .lede {
+  color: var(--lf-on-dark-soft);
+}
+
+/* Eyebrow */
+.section.dark .eyebrow,
+.section.black .eyebrow {
+  color: var(--lf-on-dark-mute);
+}
+
+/* Pull-quote on dark — ember left-border still pops */
+.section.dark .pullquote,
+.section.black .pullquote {
+  color: var(--lf-on-dark);
+}
+
+/* Inline links on dark */
+.section.dark .inline-link,
+.section.black .inline-link {
+  color: var(--lf-on-dark);
+}
+.section.dark .inline-link:hover,
+.section.black .inline-link:hover {
+  color: var(--lf-ember);
+}
+
+/* Row-list rules on dark */
+.section.dark .row-list,
+.section.black .row-list {
+  border-top-color: var(--lf-rule-dark);
+}
+.section.black .row-list { border-top-color: var(--lf-rule-darker); }
+.section.dark .row-list .row,
+.section.black .row-list .row {
+  border-bottom-color: var(--lf-rule-dark);
+}
+.section.black .row-list .row { border-bottom-color: var(--lf-rule-darker); }
+.section.dark .row-list .row .num,
+.section.black .row-list .row .num,
+.section.dark .row-list .row .meta,
+.section.black .row-list .row .meta {
+  color: var(--lf-on-dark-mute);
+}
+.section.dark .row-list .row h3,
+.section.black .row-list .row h3 {
+  color: var(--lf-on-dark);
+}
+.section.dark .row-list .row .body,
+.section.black .row-list .row .body {
+  color: var(--lf-on-dark-soft);
+}
+
+/* Stats on dark */
+.section.dark .stats,
+.section.black .stats {
+  border-color: var(--lf-rule-dark);
+}
+.section.black .stats { border-color: var(--lf-rule-darker); }
+.section.dark .stat,
+.section.black .stat {
+  border-right-color: var(--lf-rule-dark);
+}
+.section.black .stat { border-right-color: var(--lf-rule-darker); }
+.section.dark .stat .label,
+.section.black .stat .label {
+  color: var(--lf-on-dark-mute);
+}
+.section.dark .stat .val,
+.section.black .stat .val {
+  color: var(--lf-on-dark);
+}
+.section.dark .stat .val .small,
+.section.black .stat .val .small {
+  color: var(--lf-on-dark-soft);
+}
+
+/* Cards on dark — use the lifted dark surface so cards read as elevated */
+.section.dark .card {
+  background: var(--lf-charcoal-soft);
+  border-color: var(--lf-rule-dark);
+}
+.section.black .card {
+  background: var(--lf-black-soft);
+  border-color: var(--lf-rule-darker);
+}
+.section.dark .card:hover,
+.section.black .card:hover { border-color: var(--lf-on-dark); }
+.section.dark .card h3,
+.section.black .card h3 { color: var(--lf-on-dark); }
+.section.dark .card p,
+.section.black .card p { color: var(--lf-on-dark-soft); }
+.section.dark .card .num,
+.section.black .card .num { color: var(--lf-on-dark-mute); }
+
+/* Tags on dark */
+.section.dark .tag,
+.section.black .tag {
+  color: var(--lf-on-dark-soft);
+  border-color: var(--lf-rule-dark);
+}
+.section.black .tag { border-color: var(--lf-rule-darker); }
+
+/* Buttons on dark — invert the primary so it reads against the dark background */
+.section.dark .btn,
+.section.black .btn {
+  background: var(--lf-paper);
+  color: var(--lf-ink);
+  border-color: var(--lf-paper);
+}
+.section.dark .btn:hover,
+.section.black .btn:hover {
+  background: var(--lf-ember);
+  color: var(--lf-paper);
+  border-color: var(--lf-ember);
+}
+.section.dark .btn.ghost,
+.section.black .btn.ghost {
+  background: transparent;
+  color: var(--lf-on-dark);
+  border-color: var(--lf-on-dark);
+}
+.section.dark .btn.ghost:hover,
+.section.black .btn.ghost:hover {
+  background: var(--lf-on-dark);
+  color: var(--lf-ink);
+}
+.section.dark .btn.ember,
+.section.black .btn.ember {
+  background: var(--lf-ember);
+  border-color: var(--lf-ember);
+  color: var(--lf-paper);
+}
+
+/* Rule lines on dark */
+.section.dark.rule,
+.section.black.rule { border-top-color: var(--lf-rule-dark); }
+.section.dark hr.rule,
+.section.black hr.rule { border-top-color: var(--lf-rule-dark); }
+
+/* Hero variant on dark */
+.hero.dark, .hero.black {
+  border-bottom-color: var(--lf-rule-dark);
+  color: var(--lf-on-dark);
+}
+.hero.dark { background: var(--lf-charcoal); }
+.hero.black { background: var(--lf-black); }
+.hero.dark h1, .hero.black h1 { color: var(--lf-on-dark); }
+.hero.dark h1 em, .hero.black h1 em { color: var(--lf-ember); }
+.hero.dark .lede, .hero.black .lede { color: var(--lf-on-dark-soft); }
+.hero.dark .eyebrow, .hero.black .eyebrow { color: var(--lf-on-dark-mute); }
+
+/* CTA block on dark */
+.cta-block.dark, .cta-block.black {
+  background: var(--lf-charcoal);
+  border-color: var(--lf-charcoal);
+  color: var(--lf-on-dark);
+}
+.cta-block.black { background: var(--lf-black); border-color: var(--lf-black); }
+.cta-block.dark h2, .cta-block.black h2 { color: var(--lf-on-dark); }
+.cta-block.dark h2 em, .cta-block.black h2 em { color: var(--lf-ember); }
+
+/* Inline links inside dark CTA blocks (and any dark surface) need light text */
+.cta-block.dark .inline-link,
+.cta-block.black .inline-link {
+  color: var(--lf-on-dark);
+  background-image: linear-gradient(var(--lf-ember), var(--lf-ember));
+}
+.cta-block.dark .inline-link:hover,
+.cta-block.black .inline-link:hover {
+  color: var(--lf-ember);
+}
+
+/* Buttons inside dark CTA blocks — primary should still pop */
+.cta-block.dark .btn,
+.cta-block.black .btn {
+  background: var(--lf-paper);
+  color: var(--lf-ink);
+  border-color: var(--lf-paper);
+}
+.cta-block.dark .btn:hover,
+.cta-block.black .btn:hover {
+  background: var(--lf-ember);
+  color: var(--lf-paper);
+  border-color: var(--lf-ember);
+}
+.cta-block.dark .btn.ember,
+.cta-block.black .btn.ember {
+  background: var(--lf-ember);
+  border-color: var(--lf-ember);
+  color: var(--lf-paper);
+}
+.cta-block.dark .btn.ember:hover,
+.cta-block.black .btn.ember:hover {
+  background: var(--lf-ember-deep);
+  border-color: var(--lf-ember-deep);
+}
+
+/* ==========================================================================
+   Big-stat grid — for the "Between us" cumulative stats block
+   Designed to render large on charcoal/black backgrounds. 4 cols on desktop,
+   2 cols on tablet, 1 col on mobile.
+   ========================================================================== */
+.big-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--lf-rule-dark);
+  border-left: 1px solid var(--lf-rule-dark);
+}
+.big-stat {
+  padding: 36px 28px;
+  border-right: 1px solid var(--lf-rule-dark);
+  border-bottom: 1px solid var(--lf-rule-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.big-stat .val {
+  font-family: var(--lf-serif);
+  font-weight: 350;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+  color: var(--lf-ember);
+}
+.big-stat .label {
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lf-on-dark-mute);
+  margin-top: 8px;
+  line-height: 1.4;
+}
+.big-stat .desc {
+  font-family: var(--lf-sans);
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--lf-on-dark-soft);
+  margin-top: 6px;
+}
+
+/* On light surfaces, swap inverse text colors back */
+.section:not(.dark):not(.black) .big-stat-grid {
+  border-top-color: var(--lf-rule);
+  border-left-color: var(--lf-rule);
+}
+.section:not(.dark):not(.black) .big-stat {
+  border-right-color: var(--lf-rule);
+  border-bottom-color: var(--lf-rule);
+}
+.section:not(.dark):not(.black) .big-stat .label { color: var(--lf-mute); }
+.section:not(.dark):not(.black) .big-stat .desc { color: var(--lf-graphite); }
+
+@media (max-width: 880px) {
+  .big-stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .big-stat { padding: 28px 20px; }
+}
+@media (max-width: 520px) {
+  .big-stat-grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   Mobile nav — hamburger toggle (replaces the previous `display:none` of nav ul)
+   ========================================================================== */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: 0;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--lf-ink);
+}
+.nav-toggle .bar {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--lf-ink);
+  margin: 5px 0;
+  transition: transform 220ms var(--lf-ease), opacity 220ms var(--lf-ease);
+}
+.nav-toggle[aria-expanded="true"] .bar:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .bar:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .bar:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+@media (max-width: 720px) {
+  .site-nav__inner {
+    padding: 14px 20px;
+    gap: 12px;
+  }
+  .site-nav .logo span:not(.mark):not(.label) {
+    font-size: 17px;
+  }
+  .site-nav .nav-cta {
+    padding: 8px 14px;
+    font-size: 12.5px;
+  }
+  .nav-toggle { display: block; margin-left: auto; order: 2; }
+  .site-nav .nav-cta { order: 3; }
+  .site-nav ul {
+    display: none;
+    order: 4;
+    flex-basis: 100%;
+    flex-direction: column;
+    gap: 0;
+    padding: 12px 0 8px;
+    border-top: 1px solid var(--lf-rule);
+    margin-top: 12px;
+  }
+  .site-nav ul.is-open { display: flex; }
+  .site-nav ul li { padding: 12px 0; }
+  .site-nav a.nav-link.is-active::after { display: none; }
+}
+
+/* ==========================================================================
+   Mobile + responsive refinements (general)
+   ========================================================================== */
+@media (max-width: 880px) {
+  .row-list .row {
+    grid-template-columns: 80px 1fr;
+    grid-template-rows: auto auto;
+  }
+  .row-list .row .meta {
+    grid-column: 2;
+    text-align: left;
+    margin-top: 4px;
+  }
+  .cta-block { padding: 36px 24px; }
+  .cta-block h2 { font-size: 28px; }
+}
+
+@media (max-width: 720px) {
+  .hero { padding: 80px 0 64px; }
+  .hero.short { padding: 64px 0 48px; }
+  .section { padding-top: var(--lf-section-y-sm); padding-bottom: var(--lf-section-y-sm); }
+  .pullquote { font-size: 22px; padding-left: 18px; }
+  .section-head { gap: 16px; margin-bottom: 40px; }
+  .stats { grid-template-columns: 1fr; }
+  .stat {
+    border-right: 0;
+    border-bottom: 1px solid var(--lf-rule);
+    padding: 24px 0;
+  }
+  .stat:first-child { padding-left: 0; padding-top: 0; }
+  .stat:last-child { border-bottom: 0; padding-bottom: 0; padding-right: 0; }
+  .grid-3 { grid-template-columns: 1fr; gap: 12px; }
+  .row-2col, .row-2col.asym { grid-template-columns: 1fr; gap: 32px; }
+  .form .submit-row .btn { width: 100%; justify-content: center; }
+  .site-footer__inner { grid-template-columns: 1fr; gap: 32px; }
+  .site-footer { padding: 48px 24px 32px; }
+  .site-footer__meta { padding: 24px; flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+
+/* Larger tap targets for buttons + interactive elements on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .btn, .nav-cta, .form input, .form select, .form textarea {
+    min-height: 44px;
+  }
+  .nav-toggle { min-width: 44px; min-height: 44px; }
+}

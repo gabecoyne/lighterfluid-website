@@ -1,0 +1,19 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Lighter Fluid",
+    "theme_version": "1.0.0",
+    "theme_author": "Lighter Fluid",
+    "theme_documentation_url": "https://github.com/gabecoyne/lighterfluid-website",
+    "theme_support_email": "gabe@lighterfluid.co"
+  },
+  {
+    "name": "About this theme",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "This theme is intentionally minimal. There are no section settings to edit in this admin — content is managed by editing Liquid files in the github.com/gabecoyne/lighterfluid-website repo. Pushes to master auto-deploy."
+      }
+    ]
+  }
+]

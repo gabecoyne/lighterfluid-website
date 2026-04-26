@@ -1,0 +1,13 @@
+{
+  "general": {
+    "404": {
+      "title": "Page not found",
+      "subtext": "Couldn't find that page."
+    }
+  },
+  "shopify": {
+    "links": {
+      "title": "Lighter Fluid"
+    }
+  }
+}
