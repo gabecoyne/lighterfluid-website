@@ -98,27 +98,42 @@ img, svg { max-width: 100%; display: block; }
   position: absolute;
   top: 100%;
   left: -16px;
-  min-width: 220px;
-  margin-top: 14px;
-  padding: 8px 0;
-  background: var(--lf-paper);
-  border: 1px solid var(--lf-rule);
+  min-width: 240px;
+  margin-top: 0;
+  padding: 14px 0 8px;        /* top padding holds the hover-bridge gap */
+  background: transparent;     /* real background lives on ::after */
+  border: 0;
   display: none;
   flex-direction: column;
   gap: 0;
   z-index: 50;
+}
+/* Visible chrome of the dropdown (drawn under the items, leaves the top
+   14px transparent so the bridge feels open but the cursor stays "inside"
+   the submenu's hover area). */
+.site-nav .submenu::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 0; right: 0; bottom: 0;
+  background: var(--lf-paper);
+  border: 1px solid var(--lf-rule);
   box-shadow: 0 6px 24px rgba(20, 20, 20, 0.06);
+  z-index: -1;
 }
 .site-nav .has-submenu:hover > .submenu,
-.site-nav .has-submenu:focus-within > .submenu {
+.site-nav .has-submenu:focus-within > .submenu,
+.site-nav .has-submenu.is-open > .submenu {
   display: flex;
 }
-.site-nav .submenu li { padding: 0; }
+.site-nav .submenu li { padding: 0; width: 100%; }
 .site-nav .submenu a {
   display: block;
+  width: 100%;
   padding: 12px 20px;
   font-family: var(--lf-sans);
   font-size: 14px;
+  text-align: left;
   color: var(--lf-ink);
   text-decoration: none;
   border-bottom: 1px solid var(--lf-rule-quiet);

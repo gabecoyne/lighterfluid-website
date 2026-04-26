@@ -1,14 +1,12 @@
 {%- comment -%}
-  main-products.liquid — Toolkit landing page.
+  main-page-products.liquid — the Toolkit landing rendered as a Shopify Page.
 
-  Used by templates/page.products.json. Assigned to the "products" page in admin.
+  Used by templates/page.products.json. Assign that template to the
+  "products" page in Shopify admin.
 
   Pulls products from the "toolkit" collection by handle, so adding/removing
   products on the listing only requires changing the collection in admin.
   Falls back gracefully if the collection isn't set up yet.
-
-  Per-product editable content lives in lf_pack metafields. See
-  Projects/digital-products/_spec/01_product_template_schema.md.
 {%- endcomment -%}
 
 {%- assign toolkit = collections['toolkit'] -%}
@@ -80,7 +78,7 @@
       </div>
     {% else %}
       <div class="toolkit-empty">
-        <p><em>The toolkit collection isn't set up yet.</em> In Shopify admin, go to Products → Collections, create a new collection with handle <code>toolkit</code>, add the twelve toolkit products, then reload this page.</p>
+        <p><em>The toolkit collection isn't set up yet.</em> Create a Shopify collection with handle <code>toolkit</code> in admin → Products → Collections, add the twelve toolkit products to it, and this section will populate automatically.</p>
       </div>
     {% endif %}
   </div>
@@ -195,7 +193,7 @@
 
 {% schema %}
 {
-  "name": "Main · Products",
+  "name": "Toolkit Page",
   "settings": []
 }
 {% endschema %}
