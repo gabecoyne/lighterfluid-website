@@ -55,7 +55,8 @@
             assign mf = product.metafields.lf_pack
             assign p_eyebrow = mf.eyebrow | default: 'PACK'
             assign p_subhead = mf.subhead | default: product.description | strip_html | truncate: 140
-            assign p_price = mf.price_display | default: product.price | money
+            assign default_price = product.price | money
+            assign p_price = mf.price_display | default: default_price
             assign p_avail = mf.availability | default: 'available'
             assign p_target = mf.coming_soon_target
           -%}

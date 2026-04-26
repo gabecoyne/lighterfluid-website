@@ -71,12 +71,12 @@
         {% if is_call %}
           {% form 'product', product, class: 'toolkit-buy-form' %}
             <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
-            <button type="submit" class="btn ember">Book the call · {{ price_display | default: product.price | money }}</button>
+            <button type="submit" class="btn ember">Book the call · {{ price_display }}</button>
           {% endform %}
         {% else %}
           {% form 'product', product, class: 'toolkit-buy-form' %}
             <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
-            <button type="submit" class="btn ember">Buy · {{ price_display | default: product.price | money }}</button>
+            <button type="submit" class="btn ember">Buy · {{ price_display }}</button>
           {% endform %}
         {% endif %}
 
@@ -197,7 +197,8 @@
           {%- liquid
             assign rel_mf = related.metafields.lf_pack
             assign rel_eyebrow = rel_mf.eyebrow | default: 'PACK'
-            assign rel_price = rel_mf.price_display | default: related.price | money
+            assign rel_default_price = related.price | money
+            assign rel_price = rel_mf.price_display | default: rel_default_price
             assign rel_avail = rel_mf.availability | default: 'available'
           -%}
           <a href="{{ related.url }}" class="toolkit-related__card">
@@ -224,7 +225,7 @@
       <div class="toolkit-cta-strip__buy">
         {% if is_available %}
           <h2>{% if is_call %}Book the call.{% else %}Ready to install?{% endif %}</h2>
-          <p>{% if is_call %}Thirty minutes with Gabe or Collin. {{ price_display }}.{% else %}{{ price_display | default: product.price | money }}. Instant download. Fourteen-day refund.{% endif %}</p>
+          <p>{% if is_call %}Thirty minutes with Gabe or Collin. {{ price_display }}.{% else %}{{ price_display }}. Instant download. Fourteen-day refund.{% endif %}</p>
           {% form 'product', product, class: 'toolkit-buy-form' %}
             <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
             <button type="submit" class="btn ember">{% if is_call %}Book the call{% else %}Buy now{% endif %}</button>

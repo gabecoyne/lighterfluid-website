@@ -1,0 +1,261 @@
+{%- comment -%}
+  main-cart.liquid — Cart page.
+  Editorial layout consistent with other LF templates. Form posts to /cart for
+  updates and /checkout to proceed.
+{%- endcomment -%}
+
+<header class="hero short">
+  <div class="container">
+    <span class="eyebrow"><span class="dot"></span> CART</span>
+    {% if cart.item_count == 0 %}
+      <h1>Empty cart.<br/><em>Pick a pack.</em></h1>
+      <p class="lede">Your cart is empty. The toolkit lives at <a href="{{ routes.root_url }}pages/products">/pages/products</a> — twelve Claude Cowork Packs to choose from.</p>
+      <div class="actions" style="margin-top:32px;">
+        <a class="btn ember" href="{{ routes.root_url }}pages/products">See the toolkit</a>
+        <a class="btn ghost" href="{{ routes.root_url }}pages/free-pdfs">Free playbook PDFs</a>
+      </div>
+    {% else %}
+      <h1>{{ cart.item_count }} item{% if cart.item_count != 1 %}s{% endif %}.<br/><em>Ready to install.</em></h1>
+      <p class="lede">Instant download after checkout. Fourteen-day refund. From the same operators running Stix Golf and Host Modern.</p>
+    {% endif %}
+  </div>
+</header>
+
+{% if cart.item_count > 0 %}
+<section class="section rule" id="cart-items">
+  <div class="container">
+    <form action="{{ routes.cart_url }}" method="post" novalidate class="cart-form">
+
+      <div class="cart-list">
+        {% for item in cart.items %}
+          <div class="cart-row" data-item-key="{{ item.key }}">
+            <div class="cart-row__main">
+              <span class="cart-row__eyebrow">
+                {%- if item.product.metafields.lf_pack.eyebrow != blank -%}
+                  {{ item.product.metafields.lf_pack.eyebrow }}
+                {%- else -%}
+                  Pack
+                {%- endif -%}
+              </span>
+              <h3>
+                <a href="{{ item.product.url }}">{{ item.product.title }}</a>
+              </h3>
+              {% if item.product.metafields.lf_pack.subhead != blank %}
+                <p class="cart-row__subhead">{{ item.product.metafields.lf_pack.subhead | strip_html | truncate: 140 }}</p>
+              {% endif %}
+              <span class="cart-row__sku">SKU {{ item.sku | default: '—' }}</span>
+            </div>
+
+            <div class="cart-row__qty">
+              <label for="qty-{{ item.key }}" class="visually-hidden">Quantity</label>
+              <input
+                type="number"
+                id="qty-{{ item.key }}"
+                name="updates[{{ item.key }}]"
+                value="{{ item.quantity }}"
+                min="0"
+                class="cart-row__qty-input"
+              />
+              <a href="{{ item.url_to_remove }}" class="cart-row__remove">Remove</a>
+            </div>
+
+            <div class="cart-row__price">
+              {%- if item.product.metafields.lf_pack.price_display != blank -%}
+                <span class="cart-row__price-display">{{ item.product.metafields.lf_pack.price_display }}</span>
+              {%- endif -%}
+              <span class="cart-row__price-line">{{ item.final_line_price | money }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="cart-totals">
+        <div class="cart-totals__row">
+          <span class="cart-totals__label">Subtotal</span>
+          <span class="cart-totals__value">{{ cart.total_price | money }}</span>
+        </div>
+        <p class="cart-totals__note">Taxes and any discount codes applied at checkout. Digital products — no shipping.</p>
+
+        <div class="cart-actions">
+          <button type="submit" name="update" class="btn ghost">Update cart</button>
+          <button type="submit" name="checkout" class="btn ember">Checkout</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</section>
+
+<section class="section" id="cart-upsell">
+  <div class="container">
+    <div class="cart-upsell">
+      <span class="eyebrow"><span class="dot"></span> 30-MINUTE CALL · $199</span>
+      <h2>Want help installing?<br/><em>Add office hours to your order.</em></h2>
+      <p>Live screen-share, your actual setup, real unblock. Sold separately at <a href="{{ routes.root_url }}products/office-hours">/products/office-hours</a>.</p>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<style>
+  .cart-list {
+    border-top: 1px solid var(--lf-ink);
+  }
+  .cart-row {
+    display: grid;
+    grid-template-columns: 1fr 140px 140px;
+    gap: 32px;
+    align-items: start;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--lf-rule);
+  }
+  @media (max-width: 720px) {
+    .cart-row { grid-template-columns: 1fr; gap: 12px; }
+  }
+  .cart-row__eyebrow {
+    font-family: var(--lf-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--lf-graphite);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .cart-row h3 {
+    font-family: var(--lf-serif);
+    font-weight: 400;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    color: var(--lf-ink);
+  }
+  .cart-row h3 a { color: var(--lf-ink); }
+  .cart-row h3 a:hover { color: var(--lf-ember); }
+  .cart-row__subhead {
+    font-family: var(--lf-serif);
+    font-style: italic;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--lf-graphite);
+    margin: 6px 0 8px;
+    max-width: 540px;
+  }
+  .cart-row__sku {
+    font-family: var(--lf-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lf-mute);
+  }
+
+  .cart-row__qty { display: flex; flex-direction: column; gap: 8px; }
+  .cart-row__qty-input {
+    width: 80px;
+    padding: 10px 12px;
+    border: 1px solid var(--lf-ink);
+    background: var(--lf-paper);
+    font-family: var(--lf-sans);
+    font-size: 15px;
+    color: var(--lf-ink);
+  }
+  .cart-row__qty-input:focus { outline: 2px solid var(--lf-ember); outline-offset: -1px; }
+  .cart-row__remove {
+    font-family: var(--lf-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lf-graphite);
+  }
+  .cart-row__remove:hover { color: var(--lf-ember); }
+
+  .cart-row__price { text-align: right; }
+  @media (max-width: 720px) { .cart-row__price { text-align: left; } }
+  .cart-row__price-display {
+    display: block;
+    font-family: var(--lf-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lf-graphite);
+    margin-bottom: 4px;
+  }
+  .cart-row__price-line {
+    font-family: var(--lf-serif);
+    font-size: 22px;
+    color: var(--lf-ink);
+  }
+
+  .cart-totals {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 2px solid var(--lf-ink);
+    max-width: 480px;
+    margin-left: auto;
+  }
+  .cart-totals__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+  }
+  .cart-totals__label {
+    font-family: var(--lf-mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--lf-graphite);
+  }
+  .cart-totals__value {
+    font-family: var(--lf-serif);
+    font-size: 32px;
+    color: var(--lf-ink);
+    letter-spacing: -0.015em;
+  }
+  .cart-totals__note {
+    font-family: var(--lf-serif);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--lf-graphite);
+    line-height: 1.55;
+    margin-bottom: 24px;
+  }
+  .cart-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 480px) { .cart-actions { flex-direction: column-reverse; } .cart-actions .btn { width: 100%; } }
+
+  .cart-upsell {
+    background: var(--lf-paper-deep, #f3efe6);
+    border-left: 2px solid var(--lf-ember);
+    padding: 32px 36px;
+    max-width: 720px;
+  }
+  .cart-upsell h2 {
+    font-family: var(--lf-serif);
+    font-weight: 400;
+    font-size: 26px;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin: 8px 0;
+  }
+  .cart-upsell p {
+    font-family: var(--lf-serif);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--lf-graphite);
+    line-height: 1.5;
+  }
+  .cart-upsell a { color: var(--lf-ember); }
+
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+</style>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}
