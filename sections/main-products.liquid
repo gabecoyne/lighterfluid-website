@@ -61,18 +61,18 @@
             assign p_target = mf.coming_soon_target
           -%}
           <a href="{{ product.url }}" class="toolkit-card toolkit-card--{{ p_avail }}">
-            {% if product.featured_image %}
-              <div class="toolkit-card__image">
-                <img
-                  src="{{ product.featured_image | image_url: width: 600 }}"
-                  alt="{{ product.featured_image.alt | default: product.title | escape }}"
-                  loading="lazy"
-                  width="600" height="600"
-                />
-              </div>
-            {% endif %}
             <div class="toolkit-card__body">
               <div class="toolkit-card__head">
+                {% if product.featured_image %}
+                  <div class="toolkit-card__avatar" aria-hidden="true">
+                    <img
+                      src="{{ product.featured_image | image_url: width: 128 }}"
+                      alt=""
+                      loading="lazy"
+                      width="56" height="56"
+                    />
+                  </div>
+                {% endif %}
                 <span class="toolkit-card__eyebrow">{{ p_eyebrow }}</span>
                 {% if p_avail == 'coming-soon' %}
                   <span class="toolkit-card__badge">Coming {{ p_target | default: 'soon' }}</span>
@@ -174,13 +174,14 @@
   .toolkit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
   .toolkit-card { display: flex; flex-direction: column; gap: 0; padding: 0; border: 1px solid var(--lf-ink); background: var(--lf-paper); transition: background 220ms var(--lf-ease), transform 220ms var(--lf-ease); position: relative; text-decoration: none; color: inherit; overflow: hidden; }
   .toolkit-card:hover { transform: translateY(-2px); }
-  .toolkit-card__image { width: 100%; aspect-ratio: 1 / 1; overflow: hidden; border-bottom: 1px solid var(--lf-ink); }
-  .toolkit-card__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .toolkit-card__avatar { width: 40px; height: 40px; flex: 0 0 auto; overflow: hidden; border-radius: 50%; background: var(--lf-paper-warm, #f5f1e8); border: 1px solid var(--lf-rule-quiet, rgba(0,0,0,0.08)); }
+  .toolkit-card__avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .toolkit-card__body { display: flex; flex-direction: column; gap: 12px; padding: 28px 28px 28px; flex: 1; background: var(--lf-paper); transition: background 220ms var(--lf-ease); }
   .toolkit-card:hover .toolkit-card__body { background: var(--lf-paper-warm, #f5f1e8); }
   .toolkit-card--coming-soon { opacity: 0.78; }
   .toolkit-card--coming-soon:hover { opacity: 1; }
-  .toolkit-card__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .toolkit-card__head { display: flex; align-items: center; justify-content: flex-start; gap: 12px; }
+  .toolkit-card__badge { margin-left: auto; }
   .toolkit-card__eyebrow { font-family: var(--lf-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lf-graphite); }
   .toolkit-card__badge { font-family: var(--lf-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--lf-paper); background: var(--lf-graphite); padding: 4px 8px; border-radius: 2px; }
   .toolkit-card h3 { font-family: var(--lf-serif); font-weight: 400; font-size: 26px; letter-spacing: -0.015em; color: var(--lf-ink); line-height: 1.15; }
