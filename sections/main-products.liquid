@@ -15,7 +15,7 @@
 
 <header class="hero short toolkit-collection-hero">
   <div class="container">
-    <span class="eyebrow"><span class="dot"></span> THE LIGHTER FLUID TOOLKIT · 12 PACKS</span>
+    <span class="eyebrow"><span class="dot"></span> THE LIGHTER FLUID TOOLKIT · 12 PACKS FOR CLAUDE COWORK</span>
     <h1>The brand stack we use.<br/>Productized. <em>One pack at a time.</em></h1>
     <p class="lede">Twelve digital products covering brand, design, website, ads, email, and full-campaign orchestration. Each pack is a documented system you can install in a weekend. Three are available now. The other nine ship between May and September 2026.</p>
     <div class="actions toolkit-collection-hero__actions">
@@ -53,7 +53,9 @@
         {% for product in toolkit.products %}
           {%- liquid
             assign mf = product.metafields.lf_pack
-            assign p_eyebrow = mf.eyebrow | default: 'PACK'
+            assign p_eyebrow_full = mf.eyebrow | default: 'PACK'
+            assign p_eyebrow_parts = p_eyebrow_full | split: ' · '
+            assign p_eyebrow = p_eyebrow_parts.first
             assign p_subhead = mf.subhead | default: product.description | strip_html | truncate: 140
             assign default_price = product.price | money
             assign p_price = mf.price_display | default: default_price
@@ -61,6 +63,9 @@
             assign p_target = mf.coming_soon_target
           -%}
           <a href="{{ product.url }}" class="toolkit-card toolkit-card--{{ p_avail }}">
+            {% if p_avail == 'coming-soon' %}
+              <div class="toolkit-card__banner">Coming {{ p_target | default: 'soon' }}</div>
+            {% endif %}
             <div class="toolkit-card__body">
               <div class="toolkit-card__head">
                 {% if product.featured_image %}
@@ -74,9 +79,6 @@
                   </div>
                 {% endif %}
                 <span class="toolkit-card__eyebrow">{{ p_eyebrow }}</span>
-                {% if p_avail == 'coming-soon' %}
-                  <span class="toolkit-card__badge">Coming {{ p_target | default: 'soon' }}</span>
-                {% endif %}
               </div>
               <h3>{{ product.title }}</h3>
               <p>{{ p_subhead }}</p>
@@ -181,9 +183,8 @@
   .toolkit-card--coming-soon { opacity: 0.78; }
   .toolkit-card--coming-soon:hover { opacity: 1; }
   .toolkit-card__head { display: flex; align-items: center; justify-content: flex-start; gap: 12px; }
-  .toolkit-card__badge { margin-left: auto; }
+  .toolkit-card__banner { font-family: var(--lf-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lf-paper); background: var(--lf-ink); padding: 8px 16px; text-align: left; border-bottom: 1px solid var(--lf-ink); }
   .toolkit-card__eyebrow { font-family: var(--lf-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lf-graphite); }
-  .toolkit-card__badge { font-family: var(--lf-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--lf-paper); background: var(--lf-graphite); padding: 4px 8px; border-radius: 2px; }
   .toolkit-card h3 { font-family: var(--lf-serif); font-weight: 400; font-size: 26px; letter-spacing: -0.015em; color: var(--lf-ink); line-height: 1.15; }
   .toolkit-card p { font-family: var(--lf-serif); font-weight: 350; font-style: italic; font-size: 15px; line-height: 1.5; color: var(--lf-graphite); flex: 1; }
   .toolkit-card__cta { font-family: var(--lf-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lf-ember); margin-top: auto; }
