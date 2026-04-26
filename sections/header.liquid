@@ -42,11 +42,60 @@
           <li><a href="{{ routes.root_url }}pages/coaching">Founder Coaching</a></li>
         </ul>
       </li>
+      <li><a class="nav-link{% if current == 'speaking' or current == 'speaking-inquiry' %} is-active{% endif %}" href="{{ routes.root_url }}pages/speaking">Speaking</a></li>
       <li><a class="nav-link{% if current == 'work' %} is-active{% endif %}" href="{{ routes.root_url }}pages/work">Work</a></li>
       <li><a class="nav-link{% if current == 'about' %} is-active{% endif %}" href="{{ routes.root_url }}pages/about">About</a></li>
     </ul>
 
-    <a class="nav-cta" href="{{ routes.root_url }}pages/contact">Book a call</a>
+    <div class="nav-cta-wrap">
+      <button
+        class="nav-cta nav-cta-trigger"
+        aria-label="Open inquiry menu"
+        aria-haspopup="true"
+        aria-expanded="false"
+        onclick="var p=this.parentElement;var e=this.getAttribute('aria-expanded')==='true';this.setAttribute('aria-expanded',!e);p.classList.toggle('is-open');">
+        Book a call
+        <span class="nav-cta-chev" aria-hidden="true">⌄</span>
+      </button>
+      <ul class="nav-cta-menu" role="menu">
+        <li role="menuitem">
+          <a href="{{ routes.root_url }}pages/install-inquiry">
+            <span class="nav-cta-menu__title">AI Implementation</span>
+            <span class="nav-cta-menu__sub">90-day install · From $8K/mo</span>
+          </a>
+        </li>
+        <li role="menuitem">
+          <a href="{{ routes.root_url }}pages/audit-inquiry">
+            <span class="nav-cta-menu__title">Audit</span>
+            <span class="nav-cta-menu__sub">2-week diagnostic · $5K</span>
+          </a>
+        </li>
+        <li role="menuitem">
+          <a href="{{ routes.root_url }}pages/speaking-inquiry">
+            <span class="nav-cta-menu__title">Speaking Engagement</span>
+            <span class="nav-cta-menu__sub">Conferences · Podcasts · Workshops</span>
+          </a>
+        </li>
+        <li role="menuitem">
+          <a href="{{ routes.root_url }}pages/coaching-inquiry">
+            <span class="nav-cta-menu__title">Founder Coaching</span>
+            <span class="nav-cta-menu__sub">$4K/mo · Four slots</span>
+          </a>
+        </li>
+        <li role="menuitem">
+          <a href="{{ routes.root_url }}pages/skill-setup-inquiry">
+            <span class="nav-cta-menu__title">Skill Setup &amp; Support</span>
+            <span class="nav-cta-menu__sub">Configuration help · From $750</span>
+          </a>
+        </li>
+        <li role="menuitem" class="nav-cta-menu__divider">
+          <a href="{{ routes.root_url }}pages/contact">
+            <span class="nav-cta-menu__title">Not sure / Other</span>
+            <span class="nav-cta-menu__sub">General contact form</span>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 
