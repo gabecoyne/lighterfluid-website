@@ -1,0 +1,83 @@
+{%- comment -%}
+  main-booking.liquid — body content for /pages/booking.
+  Hub page that explains the engagement types and routes to each inquiry form.
+  Single canonical destination for "Book a call" CTAs across the site.
+  SEO + JSON-LD live in snippets/seo-meta.liquid (context-aware via page.handle).
+{%- endcomment -%}
+
+<header class="hero short">
+    <div class="container">
+      <span class="eyebrow"><span class="dot"></span> Book a call · Pick the right form for your inquiry</span>
+      <h1>Five ways to work with us.<br/><em>Pick the closest match.</em></h1>
+      <p class="lede">Each engagement has a tailored intake form so the first call doesn't waste either of our time. We read every form personally and reply within two business days.</p>
+    </div>
+  </header>
+
+  <!-- ============ ENGAGEMENT TYPES ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="row-list">
+
+        <a class="row row-link" href="{{ routes.root_url }}pages/install-inquiry">
+          <div class="num">01</div>
+          <div><h3>AI Implementation</h3></div>
+          <div class="body">A productized 90-day install. Two to five skill kits across Brand, Marketing, Ecom, Operations, Product, or Custom — your team runs them after. Standards layer included.</div>
+          <div class="meta">From $8K/mo · 90 days</div>
+        </a>
+
+        <a class="row row-link" href="{{ routes.root_url }}pages/audit-inquiry">
+          <div class="num">02</div>
+          <div><h3>Audit</h3></div>
+          <div class="body">A two-week, fixed-price diagnostic of your stack with a written 90-day install plan as the deliverable. Credits toward Install if you sign within 60 days.</div>
+          <div class="meta">$5K · 2 weeks</div>
+        </a>
+
+        <a class="row row-link" href="{{ routes.root_url }}pages/speaking-inquiry">
+          <div class="num">03</div>
+          <div><h3>Speaking Engagement</h3></div>
+          <div class="body">Conferences, podcasts, workshops, press interviews. Six talk tracks ranging across AI for consumer brands, productized consulting, brand-as-system, and operator-led growth. Either of us solo or together.</div>
+          <div class="meta">Keynote $10K · Workshop $15–25K</div>
+        </a>
+
+        <a class="row row-link" href="{{ routes.root_url }}pages/coaching-inquiry">
+          <div class="num">04</div>
+          <div><h3>Founder Coaching</h3></div>
+          <div class="body">General startup coaching for consumer-brand founders. Weekly working sessions, Slack between, month-to-month. Strategy, fundraising, product, growth, hiring, ops. Four slots, intentionally.</div>
+          <div class="meta">$4K/mo · Four slots</div>
+        </a>
+
+        <a class="row row-link" href="{{ routes.root_url }}pages/skill-setup-inquiry">
+          <div class="num">05</div>
+          <div><h3>Skill Setup &amp; Support</h3></div>
+          <div class="body">A working session to get an LF skill pack configured to your stack — credentials, prompts tuned to your data, runbook calibrated to your team. For customers of our skill catalog.</div>
+          <div class="meta">$750 / session · 90 min</div>
+        </a>
+
+        <a class="row row-link row-link--quiet" href="{{ routes.root_url }}pages/contact">
+          <div class="num">06</div>
+          <div><h3>Not sure / Other</h3></div>
+          <div class="body">Ask the question, we'll route the answer. Use this if your situation doesn't match the five above, or if you're not yet sure what kind of engagement makes sense.</div>
+          <div class="meta">General contact</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT HAPPENS NEXT ============ -->
+  <section class="section sm rule">
+    <div class="container narrow">
+      <span class="eyebrow"><span class="dot"></span> What happens after you submit</span>
+      <div class="prose" style="margin-top:24px;">
+        <p>Within two business days you'll get a personal reply from Gabe or Collin. If we're a fit we'll schedule a 30-minute video call. If we're not, we'll tell you why and refer you on. Either way, you'll get a real answer from a real person.</p>
+        <p>If we move forward, you'll get a one-page proposal within a week of the call. For an implementation, we start within two weeks of countersignature. For coaching, we book your first session inside seven days. For speaking, we send the agreement same week.</p>
+      </div>
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "Main · Booking",
+  "settings": []
+}
+{% endschema %}

@@ -574,6 +574,13 @@ img, svg { max-width: 100%; display: block; }
   .row-list .row { grid-template-columns: 1fr; gap: 12px; }
   .row-list .row .meta { text-align: left; }
 }
+/* Row-as-link variant — used on /pages/booking */
+a.row-link { text-decoration: none; color: inherit; cursor: pointer; }
+a.row-link h3 { transition: color 220ms var(--lf-ease); }
+a.row-link:hover h3 { color: var(--lf-ember); }
+a.row-link .meta { color: var(--lf-graphite); transition: color 220ms var(--lf-ease); }
+a.row-link:hover .meta { color: var(--lf-ember); }
+a.row-link--quiet h3 { font-style: italic; color: var(--lf-graphite); }
 
 /* ==========================================================================
    Long-form prose

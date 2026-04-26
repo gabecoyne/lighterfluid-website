@@ -1,0 +1,163 @@
+{%- comment -%}
+  main-install-inquiry.liquid — body content for AI Install inquiry form.
+  Edit this file to update the page. SEO + JSON-LD live in snippets/seo-meta.liquid.
+{%- endcomment -%}
+
+<header class="hero short">
+    <div class="container">
+      <span class="eyebrow"><span class="dot"></span> AI Install inquiry · 90 days · From $8K/mo</span>
+      <h1>Tell us what you're trying to install.<br/><em>If we're a fit, you'll know in twenty minutes.</em></h1>
+      <p class="lede">A few details so the first call doesn't waste either of our time. We read every form personally and reply within two business days.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="row-2col asym">
+        <div>
+          <h2 style="font-family:var(--lf-serif);font-weight:350;font-size:32px;line-height:1.15;letter-spacing:-0.015em;color:var(--lf-ink);">What we look at on the call.</h2>
+          <p style="margin-top:24px;font-size:16px;line-height:1.65;color:var(--lf-ink-soft);max-width:480px;">
+            Where the leverage points are in your business, which capability areas to install in, what kit count fits inside ninety days, and whether we're the right team for the job. If we're not, we'll say so and refer.
+          </p>
+
+          <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--lf-rule);">
+            <span class="eyebrow"><span class="dot"></span> Pricing reference</span>
+            <p style="margin-top:18px;font-size:14px;line-height:1.65;color:var(--lf-graphite);max-width:380px;">
+              Base 2-kit pack starts at $8K/mo ($24K total, 90 days). Each additional kit adds $4K/mo. Most engagements land at $8K–$12K/mo (Base or Expanded). Standards layer included.
+            </p>
+            <p style="margin-top:18px;">
+              <a class="inline-link" href="{{ routes.root_url }}pages/implementation">See full Install detail →</a>
+            </p>
+          </div>
+
+          <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--lf-rule);">
+            <span class="eyebrow"><span class="dot"></span> Engagement minimums</span>
+            <p style="margin-top:18px;font-size:14px;line-height:1.65;color:var(--lf-graphite);max-width:380px;">
+              Consumer / DTC focused. We won't take work in regulated industries (healthcare, financial services, manufacturing) unless you have a strong operator already inside.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          {%- form 'contact', class: 'form' -%}
+            {%- if form.posted_successfully? -%}
+              <div style="padding:32px 28px;border:1px solid var(--lf-ember);background:var(--lf-ember-soft);">
+                <span class="eyebrow" style="color:var(--lf-ember);"><span class="dot"></span> Sent</span>
+                <h3 style="font-family:var(--lf-serif);font-weight:400;font-size:24px;line-height:1.2;letter-spacing:-0.01em;margin-top:12px;color:var(--lf-ink);">
+                  Thanks — we got it.
+                </h3>
+                <p style="margin-top:12px;font-size:15px;line-height:1.6;color:var(--lf-ink-soft);">
+                  Within two business days you'll hear back from Gabe or Collin directly. If we're a fit, we'll schedule a 30-minute call. If we're not, we'll tell you why and refer you on.
+                </p>
+              </div>
+            {%- else -%}
+              {%- if form.errors -%}
+                <div style="padding:18px 22px;border:1px solid var(--lf-negative,#9c2c1c);background:#fdecea;margin-bottom:24px;color:var(--lf-negative,#9c2c1c);font-size:14px;line-height:1.55;">
+                  <strong>Something needs fixing:</strong>
+                  <ul style="margin:8px 0 0 18px;list-style:disc;">
+                    {%- for field in form.errors -%}
+                      <li>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              {%- endif -%}
+
+              <input type="hidden" name="contact[Inquiry type]" value="AI Install" />
+
+              <div class="field">
+                <label for="contact-name">Your name</label>
+                <input id="contact-name" name="contact[name]" type="text" autocomplete="name" required />
+              </div>
+
+              <div class="field">
+                <label for="contact-email">Email</label>
+                <input id="contact-email" name="contact[email]" type="email" autocomplete="email" required />
+              </div>
+
+              <div class="field">
+                <label for="contact-company">Company</label>
+                <input id="contact-company" name="contact[Company]" type="text" required />
+              </div>
+
+              <div class="field">
+                <label for="contact-role">Your role</label>
+                <input id="contact-role" name="contact[Role]" type="text" placeholder="Founder / CEO / VP Growth / etc." />
+              </div>
+
+              <div class="field">
+                <label for="contact-size">Annual revenue range</label>
+                <select id="contact-size" name="contact[Revenue range]" required>
+                  <option value="">Select range</option>
+                  <option>Under $5M</option>
+                  <option>$5M – $15M</option>
+                  <option>$15M – $50M</option>
+                  <option>$50M – $150M</option>
+                  <option>$150M+</option>
+                  <option>Pre-revenue / haven't launched</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="contact-capability">Capability area of focus</label>
+                <select id="contact-capability" name="contact[Capability area]">
+                  <option value="">Select if known</option>
+                  <option>Brand</option>
+                  <option>Marketing</option>
+                  <option>Ecom</option>
+                  <option>Operations</option>
+                  <option>Product</option>
+                  <option>Custom</option>
+                  <option>More than one</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="contact-pack">Kit count target</label>
+                <select id="contact-pack" name="contact[Pack target]">
+                  <option value="">Open to recommendation</option>
+                  <option>Base · 2 kits ($8K/mo)</option>
+                  <option>Expanded · 3 kits ($12K/mo)</option>
+                  <option>Deep · 4 kits ($16K/mo)</option>
+                  <option>Premium · 5 kits ($20K/mo)</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="contact-stack">Tech stack</label>
+                <input id="contact-stack" name="contact[Stack]" type="text" placeholder="e.g., Shopify, Klaviyo, Triple Whale, Meta, Google Ads" />
+              </div>
+
+              <div class="field">
+                <label for="contact-timeline">When do you want to start?</label>
+                <select id="contact-timeline" name="contact[Timeline]">
+                  <option value="">Select</option>
+                  <option>Immediately</option>
+                  <option>Within 30 days</option>
+                  <option>Within 60 days</option>
+                  <option>This quarter</option>
+                  <option>Exploring — no fixed timeline</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="contact-body">What's on your mind?</label>
+                <textarea id="contact-body" name="contact[body]" placeholder="The 1–3 things you'd want us to look at if we were sitting across the table. Don't polish."></textarea>
+              </div>
+
+              <div class="submit-row">
+                <button class="btn ember no-arrow" type="submit">Send inquiry →</button>
+              </div>
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "Main · Install Inquiry",
+  "settings": []
+}
+{% endschema %}

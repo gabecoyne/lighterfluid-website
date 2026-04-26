@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-skill-setup-inquiry"
+    }
+  },
+  "order": ["main"]
+}

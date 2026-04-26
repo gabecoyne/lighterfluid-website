@@ -1,0 +1,139 @@
+{%- comment -%}
+  main-coaching-inquiry.liquid — body content for Founder Coaching inquiry form.
+  Edit this file to update the page. SEO + JSON-LD live in snippets/seo-meta.liquid.
+{%- endcomment -%}
+
+<header class="hero short">
+    <div class="container">
+      <span class="eyebrow"><span class="dot"></span> Coaching inquiry · $4K/mo · Four slots</span>
+      <h1>Tell us about the company.<br/><em>And what you're stuck on.</em></h1>
+      <p class="lede">General startup coaching for consumer-brand founders. Weekly working sessions, Slack between, month-to-month. Capacity is four slots — we keep it that way intentionally.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="row-2col asym">
+        <div>
+          <h2 style="font-family:var(--lf-serif);font-weight:350;font-size:32px;line-height:1.15;letter-spacing:-0.015em;color:var(--lf-ink);">What coaching covers.</h2>
+          <p style="margin-top:24px;font-size:16px;line-height:1.65;color:var(--lf-ink-soft);max-width:480px;">
+            Strategy, fundraising, product, growth, hiring, operations. AI fluency woven in because that's how we operate, not because it's the curriculum. One 60-minute working session per week, video, plus Slack access between. Month-to-month with sixty-day notice.
+          </p>
+
+          <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--lf-rule);">
+            <span class="eyebrow"><span class="dot"></span> Capacity note</span>
+            <p style="margin-top:18px;font-size:14px;line-height:1.65;color:var(--lf-graphite);max-width:380px;">
+              Four slots. The cap is the product — we don't expand it to take a fifth. If we're full, we'll put you at the top of the waitlist and tell you when a slot is likely to open.
+            </p>
+            <p style="margin-top:18px;">
+              <a class="inline-link" href="{{ routes.root_url }}pages/coaching">See full Coaching detail →</a>
+            </p>
+          </div>
+        </div>
+
+        <div>
+          {%- form 'contact', class: 'form' -%}
+            {%- if form.posted_successfully? -%}
+              <div style="padding:32px 28px;border:1px solid var(--lf-ember);background:var(--lf-ember-soft);">
+                <span class="eyebrow" style="color:var(--lf-ember);"><span class="dot"></span> Sent</span>
+                <h3 style="font-family:var(--lf-serif);font-weight:400;font-size:24px;line-height:1.2;letter-spacing:-0.01em;margin-top:12px;color:var(--lf-ink);">
+                  Thanks — coaching inquiry received.
+                </h3>
+                <p style="margin-top:12px;font-size:15px;line-height:1.6;color:var(--lf-ink-soft);">
+                  Within two business days you'll hear from Gabe or Collin. If a slot is open we'll schedule a fit call. If we're full we'll put you on the waitlist with a realistic timeline.
+                </p>
+              </div>
+            {%- else -%}
+              {%- if form.errors -%}
+                <div style="padding:18px 22px;border:1px solid var(--lf-negative,#9c2c1c);background:#fdecea;margin-bottom:24px;color:var(--lf-negative,#9c2c1c);font-size:14px;line-height:1.55;">
+                  <strong>Something needs fixing:</strong>
+                  <ul style="margin:8px 0 0 18px;list-style:disc;">
+                    {%- for field in form.errors -%}
+                      <li>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              {%- endif -%}
+
+              <input type="hidden" name="contact[Inquiry type]" value="Founder Coaching" />
+
+              <div class="field">
+                <label for="contact-name">Your name</label>
+                <input id="contact-name" name="contact[name]" type="text" autocomplete="name" required />
+              </div>
+
+              <div class="field">
+                <label for="contact-email">Email</label>
+                <input id="contact-email" name="contact[email]" type="email" autocomplete="email" required />
+              </div>
+
+              <div class="field">
+                <label for="contact-company">Company</label>
+                <input id="contact-company" name="contact[Company]" type="text" required />
+              </div>
+
+              <div class="field">
+                <label for="contact-url">Website / where we can see what you've built</label>
+                <input id="contact-url" name="contact[Website]" type="text" placeholder="URL or social handle" />
+              </div>
+
+              <div class="field">
+                <label for="contact-stage">Stage</label>
+                <select id="contact-stage" name="contact[Stage]" required>
+                  <option value="">Select stage</option>
+                  <option>Idea / pre-product</option>
+                  <option>Pre-revenue / building</option>
+                  <option>Pre-seed</option>
+                  <option>Seed</option>
+                  <option>Series A</option>
+                  <option>Post-Series A</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="contact-revenue">Annual revenue (current run rate)</label>
+                <select id="contact-revenue" name="contact[Revenue]">
+                  <option value="">Select</option>
+                  <option>$0 / pre-revenue</option>
+                  <option>Under $250K</option>
+                  <option>$250K – $1M</option>
+                  <option>$1M – $5M</option>
+                  <option>$5M+</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="contact-focus">Top focus area for coaching</label>
+                <select id="contact-focus" name="contact[Focus area]">
+                  <option value="">Select if known</option>
+                  <option>Strategy / positioning</option>
+                  <option>Fundraising</option>
+                  <option>Product</option>
+                  <option>Growth / acquisition</option>
+                  <option>Hiring / team</option>
+                  <option>Operations</option>
+                  <option>All of the above — general operator coaching</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="contact-body">What's stuck right now?</label>
+                <textarea id="contact-body" name="contact[body]" placeholder="The 1–3 things you'd want unstuck in the next 90 days. Don't polish."></textarea>
+              </div>
+
+              <div class="submit-row">
+                <button class="btn ember no-arrow" type="submit">Send inquiry →</button>
+              </div>
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "Main · Coaching Inquiry",
+  "settings": []
+}
+{% endschema %}

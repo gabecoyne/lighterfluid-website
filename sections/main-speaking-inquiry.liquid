@@ -1,0 +1,181 @@
+{%- comment -%}
+  main-speaking-inquiry.liquid — body content for Speaking inquiry form.
+  Edit this file to update the page. SEO + JSON-LD live in snippets/seo-meta.liquid.
+{%- endcomment -%}
+
+<header class="hero short">
+    <div class="container">
+      <span class="eyebrow"><span class="dot"></span> Speaking inquiry · Conferences · Podcasts · Workshops · Press</span>
+      <h1>Tell us about the event.<br/><em>We respond within two business days.</em></h1>
+      <p class="lede">A few details so we can confirm fit and price quickly. Travel, format, and audience are usually what determine availability.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="row-2col asym">
+        <div>
+          <h2 style="font-family:var(--lf-serif);font-weight:350;font-size:32px;line-height:1.15;letter-spacing:-0.015em;color:var(--lf-ink);">What we'll need from you.</h2>
+          <p style="margin-top:24px;font-size:16px;line-height:1.65;color:var(--lf-ink-soft);max-width:480px;">
+            Event date, audience size, format, and budget. We'll come back inside two business days with availability and a one-page agreement. If we're booked or it's not a fit, we'll tell you so directly.
+          </p>
+
+          <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--lf-rule);">
+            <span class="eyebrow"><span class="dot"></span> Fee reference</span>
+            <p style="margin-top:18px;font-size:14px;line-height:1.65;color:var(--lf-graphite);max-width:380px;">
+              Keynote $10K · Fireside $5K · Half-day workshop $15K · Full-day workshop $25K · Editorial podcasts &amp; press complimentary · Branded podcasts $2.5K · Both speakers 1.6x. Travel billed at cost. Substantial discounts for non-profit, education, and early-stage founder events.
+            </p>
+            <p style="margin-top:18px;">
+              <a class="inline-link" href="{{ routes.root_url }}pages/speaking">See talk tracks &amp; full pricing →</a>
+            </p>
+          </div>
+        </div>
+
+        <div>
+          {%- form 'contact', class: 'form' -%}
+            {%- if form.posted_successfully? -%}
+              <div style="padding:32px 28px;border:1px solid var(--lf-ember);background:var(--lf-ember-soft);">
+                <span class="eyebrow" style="color:var(--lf-ember);"><span class="dot"></span> Sent</span>
+                <h3 style="font-family:var(--lf-serif);font-weight:400;font-size:24px;line-height:1.2;letter-spacing:-0.01em;margin-top:12px;color:var(--lf-ink);">
+                  Thanks — speaking inquiry received.
+                </h3>
+                <p style="margin-top:12px;font-size:15px;line-height:1.6;color:var(--lf-ink-soft);">
+                  Within two business days you'll hear back from Gabe or Collin with availability and a one-page agreement. If we're booked or it's not a fit, you'll get a candid note plus a referral if we know someone better-suited.
+                </p>
+              </div>
+            {%- else -%}
+              {%- if form.errors -%}
+                <div style="padding:18px 22px;border:1px solid var(--lf-negative,#9c2c1c);background:#fdecea;margin-bottom:24px;color:var(--lf-negative,#9c2c1c);font-size:14px;line-height:1.55;">
+                  <strong>Something needs fixing:</strong>
+                  <ul style="margin:8px 0 0 18px;list-style:disc;">
+                    {%- for field in form.errors -%}
+                      <li>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              {%- endif -%}
+
+              <input type="hidden" name="contact[Inquiry type]" value="Speaking" />
+
+              <div class="field">
+                <label for="contact-name">Your name</label>
+                <input id="contact-name" name="contact[name]" type="text" autocomplete="name" required />
+              </div>
+
+              <div class="field">
+                <label for="contact-email">Email</label>
+                <input id="contact-email" name="contact[email]" type="email" autocomplete="email" required />
+              </div>
+
+              <div class="field">
+                <label for="contact-org">Organization / event host</label>
+                <input id="contact-org" name="contact[Organization]" type="text" required />
+              </div>
+
+              <div class="field">
+                <label for="contact-event">Event name &amp; URL (if public)</label>
+                <input id="contact-event" name="contact[Event name]" type="text" />
+              </div>
+
+              <div class="field">
+                <label for="contact-date">Event date(s)</label>
+                <input id="contact-date" name="contact[Event date]" type="text" placeholder="MM/DD/YYYY or rough month" required />
+              </div>
+
+              <div class="field">
+                <label for="contact-format">Format</label>
+                <select id="contact-format" name="contact[Format]" required>
+                  <option value="">Select format</option>
+                  <option>Keynote (45–60 min)</option>
+                  <option>Fireside / Panel (30–45 min)</option>
+                  <option>Half-day workshop (3 hrs)</option>
+                  <option>Full-day workshop (6–7 hrs)</option>
+                  <option>Multi-day cohort program</option>
+                  <option>Editorial podcast (independent show)</option>
+                  <option>Branded / sponsored podcast</option>
+                  <option>Live event podcast / On-stage record</option>
+                  <option>Press / editorial interview</option>
+                  <option>Bylined article / Op-ed</option>
+                  <option>Custom track — let's discuss</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="contact-mode">In person, remote, or hybrid?</label>
+                <select id="contact-mode" name="contact[Delivery mode]">
+                  <option value="">Select</option>
+                  <option>In person</option>
+                  <option>Remote</option>
+                  <option>Hybrid</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="contact-location">Location (if in person)</label>
+                <input id="contact-location" name="contact[Location]" type="text" placeholder="City, State / Country" />
+              </div>
+
+              <div class="field">
+                <label for="contact-audience">Audience — size &amp; makeup</label>
+                <input id="contact-audience" name="contact[Audience]" type="text" placeholder="e.g., 250 ecom founders, $5–50M revenue" />
+              </div>
+
+              <div class="field">
+                <label for="contact-track">Talk track of interest (if you have one)</label>
+                <select id="contact-track" name="contact[Talk track]">
+                  <option value="">Open to suggestion</option>
+                  <option>The Operator's AI Stack</option>
+                  <option>Productized Consulting in the AI Era</option>
+                  <option>Skills That Compound</option>
+                  <option>Brand as System, Not Asset</option>
+                  <option>AI for $10–200M Consumer Brands</option>
+                  <option>What Didn't Work</option>
+                  <option>Custom track</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="contact-speaker">Speaker preference</label>
+                <select id="contact-speaker" name="contact[Speaker preference]">
+                  <option value="">Either is fine</option>
+                  <option>Gabe Coyne</option>
+                  <option>Collin Duff</option>
+                  <option>Both (1.6x fee)</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="contact-budget">Honorarium / budget</label>
+                <select id="contact-budget" name="contact[Honorarium]">
+                  <option value="">Select range</option>
+                  <option>Complimentary (non-profit / education / early-stage founder event)</option>
+                  <option>Under $5K</option>
+                  <option>$5K – $10K</option>
+                  <option>$10K – $20K</option>
+                  <option>$20K – $40K</option>
+                  <option>$40K+</option>
+                  <option>Discussing</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="contact-body">Anything else we should know?</label>
+                <textarea id="contact-body" name="contact[body]" placeholder="Audience context, theme of the event, why you're inviting us specifically, anything that would shape the talk."></textarea>
+              </div>
+
+              <div class="submit-row">
+                <button class="btn ember no-arrow" type="submit">Send inquiry →</button>
+              </div>
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "Main · Speaking Inquiry",
+  "settings": []
+}
+{% endschema %}

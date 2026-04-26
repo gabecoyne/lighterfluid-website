@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-install-inquiry"
+    }
+  },
+  "order": ["main"]
+}

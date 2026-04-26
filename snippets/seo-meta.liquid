@@ -47,9 +47,14 @@
     {%- assign meta_path = '/pages/about' -%}
 
   {%- when 'contact' -%}
-    {%- assign meta_title = 'Book a call — Lighter Fluid' -%}
-    {%- assign meta_description = 'Free 30-minute call. If we are a fit, you will know in twenty minutes. We read every form personally and reply within two business days.' -%}
+    {%- assign meta_title = 'Contact — Lighter Fluid' -%}
+    {%- assign meta_description = 'Get in touch with Lighter Fluid. We read every form personally and reply within two business days.' -%}
     {%- assign meta_path = '/pages/contact' -%}
+
+  {%- when 'booking' -%}
+    {%- assign meta_title = 'Book a call — Lighter Fluid · Five engagement types' -%}
+    {%- assign meta_description = 'Pick the call that fits — AI Implementation, Audit, Speaking Engagement, Founder Coaching, or Skill Setup support. Each routes to a tailored intake form. We respond within two business days.' -%}
+    {%- assign meta_path = '/pages/booking' -%}
 
   {%- when 'speaking' -%}
     {%- assign meta_title = 'Speaking — Lighter Fluid · Conferences · Podcasts · Workshops · Press' -%}
@@ -177,6 +182,11 @@
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does it cost to book Lighter Fluid for a speaking engagement?","acceptedAnswer":{"@type":"Answer","text":"Conference keynotes start at $10,000. Fireside or panel appearances are $5,000. Half-day workshops are $15,000; full-day workshops are $25,000. Branded podcast appearances are $2,500. Editorial podcasts and press interviews are complimentary. Travel billed at cost. Booking both speakers is 1.6x the single-speaker fee."}},{"@type":"Question","name":"What topics does Lighter Fluid speak on?","acceptedAnswer":{"@type":"Answer","text":"Six talk tracks: The Operator's AI Stack, Productized Consulting in the AI Era, Skills That Compound, Brand as System, AI for $10-200M Consumer Brands, and What Didn't Work."}},{"@type":"Question","name":"Who speaks on behalf of Lighter Fluid?","acceptedAnswer":{"@type":"Answer","text":"Gabe Coyne (Founder) and Collin Duff (Co-Founder). Either solo or together. Both are operators currently running multiple consumer brands."}},{"@type":"Question","name":"Does Lighter Fluid offer non-profit or education discounts on speaking fees?","acceptedAnswer":{"@type":"Answer","text":"Yes. Substantial discount for non-profits, education, and early-stage founder communities (pre-Series A). Please ask on the inquiry form."}},{"@type":"Question","name":"What is the lead time for booking Lighter Fluid?","acceptedAnswer":{"@type":"Answer","text":"Six weeks minimum for keynotes, eight for workshops, two for podcasts and press. Same-week press is fine."}}]}
+</script>
+
+  {%- when 'booking' -%}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ContactPage","name":"Book a call — Lighter Fluid","url":"https://lighterfluid.co/pages/booking","description":"Hub page listing Lighter Fluid's five engagement types: AI Implementation, Audit, Speaking, Founder Coaching, and Skill Setup. Each links to a tailored intake form."}
 </script>
 
   {%- when 'install-inquiry' -%}

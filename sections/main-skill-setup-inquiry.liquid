@@ -1,0 +1,128 @@
+{%- comment -%}
+  main-skill-setup-inquiry.liquid — body content for skill-setup support inquiry.
+  For customers who buy a skill pack and want help configuring it.
+  Edit this file to update the page. SEO + JSON-LD live in snippets/seo-meta.liquid.
+{%- endcomment -%}
+
+<header class="hero short">
+    <div class="container">
+      <span class="eyebrow"><span class="dot"></span> Skill setup &amp; support · Configuration help · 1:1</span>
+      <h1>Bought a skill pack?<br/><em>We'll help you get it running.</em></h1>
+      <p class="lede">A working session to get an LF skill pack configured to your stack — credentials, prompts tuned to your data, runbook calibrated to your team. Most setups take one to two sessions.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="row-2col asym">
+        <div>
+          <h2 style="font-family:var(--lf-serif);font-weight:350;font-size:32px;line-height:1.15;letter-spacing:-0.015em;color:var(--lf-ink);">What setup looks like.</h2>
+          <p style="margin-top:24px;font-size:16px;line-height:1.65;color:var(--lf-ink-soft);max-width:480px;">
+            A 90-minute working session, screen-shared, with the operator who'll own the skill on your team. We work through your credentials, your data sources, your specific prompts, your runbook. Skills usually go live the same session. Anything that needs deeper customization gets quoted on the spot.
+          </p>
+
+          <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--lf-rule);">
+            <span class="eyebrow"><span class="dot"></span> Pricing</span>
+            <p style="margin-top:18px;font-size:14px;line-height:1.65;color:var(--lf-graphite);max-width:380px;">
+              <strong style="color:var(--lf-ink);">$750 per 90-minute session.</strong> Most setups are one or two sessions. Three-session bundle is $1,800 (saves $450). Async Slack support after the first session is included for 14 days.
+            </p>
+          </div>
+
+          <div style="margin-top:32px;padding-top:32px;border-top:1px solid var(--lf-rule);">
+            <span class="eyebrow"><span class="dot"></span> What's not covered</span>
+            <p style="margin-top:18px;font-size:14px;line-height:1.65;color:var(--lf-graphite);max-width:380px;">
+              Custom skill development. New integrations. Anything that requires writing new code. For those, the right path is an <a class="inline-link" href="{{ routes.root_url }}pages/install-inquiry">AI Install</a>.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          {%- form 'contact', class: 'form' -%}
+            {%- if form.posted_successfully? -%}
+              <div style="padding:32px 28px;border:1px solid var(--lf-ember);background:var(--lf-ember-soft);">
+                <span class="eyebrow" style="color:var(--lf-ember);"><span class="dot"></span> Sent</span>
+                <h3 style="font-family:var(--lf-serif);font-weight:400;font-size:24px;line-height:1.2;letter-spacing:-0.01em;margin-top:12px;color:var(--lf-ink);">
+                  Thanks — setup inquiry received.
+                </h3>
+                <p style="margin-top:12px;font-size:15px;line-height:1.6;color:var(--lf-ink-soft);">
+                  Within two business days we'll send a Calendly link and a short pre-session checklist (credentials to have ready, accounts to log into). Most setups happen inside the same week.
+                </p>
+              </div>
+            {%- else -%}
+              {%- if form.errors -%}
+                <div style="padding:18px 22px;border:1px solid var(--lf-negative,#9c2c1c);background:#fdecea;margin-bottom:24px;color:var(--lf-negative,#9c2c1c);font-size:14px;line-height:1.55;">
+                  <strong>Something needs fixing:</strong>
+                  <ul style="margin:8px 0 0 18px;list-style:disc;">
+                    {%- for field in form.errors -%}
+                      <li>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              {%- endif -%}
+
+              <input type="hidden" name="contact[Inquiry type]" value="Skill Setup / Support" />
+
+              <div class="field">
+                <label for="contact-name">Your name</label>
+                <input id="contact-name" name="contact[name]" type="text" autocomplete="name" required />
+              </div>
+
+              <div class="field">
+                <label for="contact-email">Email</label>
+                <input id="contact-email" name="contact[email]" type="email" autocomplete="email" required />
+              </div>
+
+              <div class="field">
+                <label for="contact-company">Company</label>
+                <input id="contact-company" name="contact[Company]" type="text" required />
+              </div>
+
+              <div class="field">
+                <label for="contact-skill">Which skill / pack?</label>
+                <input id="contact-skill" name="contact[Skill or pack]" type="text" placeholder="Pack name or 'haven't bought yet — exploring'" />
+              </div>
+
+              <div class="field">
+                <label for="contact-status">Where are you in setup?</label>
+                <select id="contact-status" name="contact[Setup status]">
+                  <option value="">Select</option>
+                  <option>Haven't started yet — want guided first session</option>
+                  <option>Started, hit a wall on configuration</option>
+                  <option>Running but outputs aren't quite right</option>
+                  <option>Want to extend / customize</option>
+                  <option>Pre-purchase — evaluating fit</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="contact-bundle">Sessions you'd like</label>
+                <select id="contact-bundle" name="contact[Sessions]">
+                  <option value="">Select</option>
+                  <option>One session — $750</option>
+                  <option>Two sessions — $1,500</option>
+                  <option>Three-session bundle — $1,800 (saves $450)</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="contact-body">What are you trying to get configured?</label>
+                <textarea id="contact-body" name="contact[body]" placeholder="What you've already tried, where it's stuck, what you'd want the skill doing by end of the session."></textarea>
+              </div>
+
+              <div class="submit-row">
+                <button class="btn ember no-arrow" type="submit">Send inquiry →</button>
+              </div>
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "Main · Skill Setup Inquiry",
+  "settings": []
+}
+{% endschema %}

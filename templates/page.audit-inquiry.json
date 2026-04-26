@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-audit-inquiry"
+    }
+  },
+  "order": ["main"]
+}

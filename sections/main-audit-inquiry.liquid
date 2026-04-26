@@ -1,0 +1,131 @@
+{%- comment -%}
+  main-audit-inquiry.liquid — body content for Audit inquiry form.
+  Edit this file to update the page. SEO + JSON-LD live in snippets/seo-meta.liquid.
+{%- endcomment -%}
+
+<header class="hero short">
+    <div class="container">
+      <span class="eyebrow"><span class="dot"></span> Audit inquiry · 2 weeks · $5,000 fixed price</span>
+      <h1>Tell us where you'd point the audit.<br/><em>Two weeks. Five thousand. Written plan.</em></h1>
+      <p class="lede">A fixed-price diagnostic of your stack with a 90-day install plan as the deliverable. Credits toward Install if you sign within 60 days. We respond within two business days.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="row-2col asym">
+        <div>
+          <h2 style="font-family:var(--lf-serif);font-weight:350;font-size:32px;line-height:1.15;letter-spacing:-0.015em;color:var(--lf-ink);">What an audit produces.</h2>
+          <p style="margin-top:24px;font-size:16px;line-height:1.65;color:var(--lf-ink-soft);max-width:480px;">
+            A written assessment of where AI moves the needle in your business right now, which kits to install in what order, what the standards layer looks like applied to your stack, and a 90-day implementation plan with kit counts and pricing locked. Whether you hire us for the install or not, the plan is yours.
+          </p>
+
+          <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--lf-rule);">
+            <span class="eyebrow"><span class="dot"></span> The credit</span>
+            <p style="margin-top:18px;font-size:14px;line-height:1.65;color:var(--lf-graphite);max-width:380px;">
+              The $5K credits in full toward an Install if you countersign within 60 days. So the audit is functionally free if we end up working together.
+            </p>
+            <p style="margin-top:18px;">
+              <a class="inline-link" href="{{ routes.root_url }}pages/implementation">See full Install detail →</a>
+            </p>
+          </div>
+        </div>
+
+        <div>
+          {%- form 'contact', class: 'form' -%}
+            {%- if form.posted_successfully? -%}
+              <div style="padding:32px 28px;border:1px solid var(--lf-ember);background:var(--lf-ember-soft);">
+                <span class="eyebrow" style="color:var(--lf-ember);"><span class="dot"></span> Sent</span>
+                <h3 style="font-family:var(--lf-serif);font-weight:400;font-size:24px;line-height:1.2;letter-spacing:-0.01em;margin-top:12px;color:var(--lf-ink);">
+                  Thanks — audit inquiry received.
+                </h3>
+                <p style="margin-top:12px;font-size:15px;line-height:1.6;color:var(--lf-ink-soft);">
+                  Within two business days you'll hear back from Gabe or Collin. If we're a fit we'll schedule the kickoff and send the audit agreement. If not, we'll tell you why.
+                </p>
+              </div>
+            {%- else -%}
+              {%- if form.errors -%}
+                <div style="padding:18px 22px;border:1px solid var(--lf-negative,#9c2c1c);background:#fdecea;margin-bottom:24px;color:var(--lf-negative,#9c2c1c);font-size:14px;line-height:1.55;">
+                  <strong>Something needs fixing:</strong>
+                  <ul style="margin:8px 0 0 18px;list-style:disc;">
+                    {%- for field in form.errors -%}
+                      <li>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              {%- endif -%}
+
+              <input type="hidden" name="contact[Inquiry type]" value="Audit" />
+
+              <div class="field">
+                <label for="contact-name">Your name</label>
+                <input id="contact-name" name="contact[name]" type="text" autocomplete="name" required />
+              </div>
+
+              <div class="field">
+                <label for="contact-email">Email</label>
+                <input id="contact-email" name="contact[email]" type="email" autocomplete="email" required />
+              </div>
+
+              <div class="field">
+                <label for="contact-company">Company</label>
+                <input id="contact-company" name="contact[Company]" type="text" required />
+              </div>
+
+              <div class="field">
+                <label for="contact-role">Your role</label>
+                <input id="contact-role" name="contact[Role]" type="text" />
+              </div>
+
+              <div class="field">
+                <label for="contact-size">Annual revenue range</label>
+                <select id="contact-size" name="contact[Revenue range]" required>
+                  <option value="">Select range</option>
+                  <option>Under $5M</option>
+                  <option>$5M – $15M</option>
+                  <option>$15M – $50M</option>
+                  <option>$50M – $150M</option>
+                  <option>$150M+</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="contact-focus">Where would you point the audit?</label>
+                <select id="contact-focus" name="contact[Audit focus]">
+                  <option value="">Select if you have a sense</option>
+                  <option>Whole-stack assessment</option>
+                  <option>Marketing / paid media</option>
+                  <option>Ecom / CRO / storefront</option>
+                  <option>Operations / data</option>
+                  <option>Brand / copy / creative production</option>
+                  <option>Product development pipeline</option>
+                  <option>Not sure — we want the recommendation</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="contact-stack">Tech stack</label>
+                <input id="contact-stack" name="contact[Stack]" type="text" placeholder="e.g., Shopify, Klaviyo, Triple Whale, Meta, Google Ads" />
+              </div>
+
+              <div class="field">
+                <label for="contact-body">What would you want answered?</label>
+                <textarea id="contact-body" name="contact[body]" placeholder="The questions you'd want a candid outside read on. The places you suspect AI could move the business but haven't been able to scope cleanly."></textarea>
+              </div>
+
+              <div class="submit-row">
+                <button class="btn ember no-arrow" type="submit">Send inquiry →</button>
+              </div>
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "Main · Audit Inquiry",
+  "settings": []
+}
+{% endschema %}
