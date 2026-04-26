@@ -609,6 +609,41 @@ img, svg { max-width: 100%; display: block; }
 }
 
 /* ==========================================================================
+   Avatar (circle-cropped portrait) — sized via .sm / .md / .lg
+   ========================================================================== */
+.avatar {
+  display: inline-block;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--lf-paper-deep);
+  border: 1px solid var(--lf-rule);
+  flex-shrink: 0;
+}
+.avatar.sm { width: 28px; height: 28px; }
+.avatar.md { width: 44px; height: 44px; }
+.avatar.lg { width: 72px; height: 72px; }
+.avatar.xl { width: 120px; height: 120px; }
+
+.avatar-pair {
+  display: inline-flex;
+  align-items: center;
+}
+.avatar-pair .avatar { margin-left: -8px; }
+.avatar-pair .avatar:first-child { margin-left: 0; }
+
+/* Inline name + tiny avatar (e.g., "— Gabe Coyne") */
+.byline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--lf-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lf-graphite);
+}
+
+/* ==========================================================================
    Founder cards (home page — scannable credits)
    ========================================================================== */
 .founder-cards {
@@ -628,13 +663,27 @@ img, svg { max-width: 100%; display: block; }
 .founder-card:hover {
   border-color: var(--lf-graphite);
 }
+.founder-card header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.founder-card header .avatar {
+  width: 56px;
+  height: 56px;
+}
+.founder-card header .ident {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 .founder-card header h3 {
   font-family: var(--lf-serif);
   font-weight: 400;
   font-size: 28px;
   letter-spacing: -0.01em;
   color: var(--lf-ink);
-  margin-bottom: 6px;
+  line-height: 1;
 }
 .founder-card header .role {
   font-family: var(--lf-mono);
