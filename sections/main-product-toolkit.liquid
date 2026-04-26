@@ -1,0 +1,306 @@
+{%- comment -%}
+  main-product-toolkit.liquid — body content for Toolkit product pages.
+
+  All editable content is metafield-driven so layout stays consistent across the 12 packs.
+  Schema: see Projects/digital-products/_spec/01_product_template_schema.md.
+
+  Metafields read (namespace: lf_pack):
+    eyebrow, headline, subhead, pack_type, price_display,
+    whats_inside, who_for, prereqs, sample_prompt, faq,
+    related_handles, lead_magnet_url, download_filename,
+    availability, coming_soon_target
+
+  Display rules:
+    availability == 'available'    -> show buy button + price
+    availability == 'coming-soon'  -> show notify-me form + "Coming {target}"; hide sample_prompt + prereqs + faq
+    pack_type    == 'Skill'        -> show prereqs + sample_prompt
+    pack_type    == 'Capstone'     -> show prereqs + sample_prompt
+    pack_type    == 'Playbook'     -> hide prereqs + sample_prompt
+    pack_type    == 'Bundle'       -> hide prereqs + sample_prompt
+    pack_type    == 'Call'         -> hide prereqs + sample_prompt; replace buy CTA with "Book the call"
+{%- endcomment -%}
+
+{%- liquid
+  assign mf = product.metafields.lf_pack
+  assign eyebrow = mf.eyebrow | default: 'PACK'
+  assign headline = mf.headline | default: product.title
+  assign subhead = mf.subhead | default: product.description
+  assign pack_type = mf.pack_type | default: 'Playbook'
+  assign price_display = mf.price_display
+  assign availability = mf.availability | default: 'available'
+  assign coming_soon_target = mf.coming_soon_target
+  assign lead_magnet_url = mf.lead_magnet_url
+  assign download_filename = mf.download_filename
+
+  assign is_available = false
+  if availability == 'available'
+    assign is_available = true
+  endif
+
+  assign show_runtime_sections = false
+  if pack_type == 'Skill' or pack_type == 'Capstone'
+    assign show_runtime_sections = true
+  endif
+
+  assign is_call = false
+  if pack_type == 'Call'
+    assign is_call = true
+  endif
+-%}
+
+<header class="hero short toolkit-hero">
+  <div class="container">
+    <span class="eyebrow"><span class="dot"></span> {{ eyebrow }}</span>
+
+    <h1>
+      {%- assign headline_lines = headline | newline_to_br | split: '<br />' -%}
+      {%- for line in headline_lines -%}
+        {%- assign trimmed = line | strip -%}
+        {%- if trimmed != '' -%}
+          {{ trimmed }}{% unless forloop.last %}<br/>{% endunless %}
+        {%- endif -%}
+      {%- endfor -%}
+    </h1>
+
+    {% if subhead != blank %}
+      <p class="lede">{{ subhead }}</p>
+    {% endif %}
+
+    <div class="actions toolkit-hero__actions">
+      {% if is_available %}
+        {% if is_call %}
+          {% form 'product', product, class: 'toolkit-buy-form' %}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
+            <button type="submit" class="btn ember">Book the call · {{ price_display | default: product.price | money }}</button>
+          {% endform %}
+        {% else %}
+          {% form 'product', product, class: 'toolkit-buy-form' %}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
+            <button type="submit" class="btn ember">Buy · {{ price_display | default: product.price | money }}</button>
+          {% endform %}
+        {% endif %}
+
+        {% if lead_magnet_url != blank %}
+          <a class="btn ghost" href="{{ lead_magnet_url }}" target="_blank" rel="noopener">See the free overview (PDF)</a>
+        {% endif %}
+      {% else %}
+        <a class="btn ember" href="#notify">Notify me when it ships</a>
+        <span class="toolkit-hero__cs-meta">Coming {{ coming_soon_target | default: 'soon' }}</span>
+      {% endif %}
+    </div>
+
+    {% if is_available and price_display != blank %}
+      <p class="toolkit-hero__price-note">{{ price_display }}</p>
+    {% endif %}
+  </div>
+</header>
+
+{%- comment -%} Pack type stripe {%- endcomment -%}
+<section class="toolkit-stripe">
+  <div class="container">
+    <span class="toolkit-stripe__line">
+      <span>{{ pack_type | upcase }}</span>
+      {% if download_filename != blank and is_available %}
+        <span class="dot"></span><span>INSTANT DOWNLOAD</span>
+      {% endif %}
+      {% if is_call %}
+        <span class="dot"></span><span>30-MINUTE VIDEO CALL</span>
+      {% endif %}
+      <span class="dot"></span><span>SKU {{ product.selected_or_first_available_variant.sku | default: 'TBD' }}</span>
+    </span>
+  </div>
+</section>
+
+{%- comment -%} What's inside {%- endcomment -%}
+{% if mf.whats_inside != blank %}
+  <section class="section rule" id="whats-inside">
+    <div class="container">
+      <div class="section-head">
+        <span class="label">01 · What's inside</span>
+        <h2>What you get<br/><em>when you buy this pack.</em></h2>
+      </div>
+      <div class="toolkit-inside">
+        {{ mf.whats_inside | metafield_tag }}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{%- comment -%} Best for / not best for {%- endcomment -%}
+{% if mf.who_for != blank %}
+  <section class="section" id="who-for">
+    <div class="container">
+      <div class="section-head">
+        <span class="label">02 · Best for</span>
+        <h2>Who this is for.<br/><em>And who it isn't.</em></h2>
+      </div>
+      <div class="toolkit-who">
+        {{ mf.who_for | metafield_tag }}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{%- comment -%} Prereqs (Skills only) {%- endcomment -%}
+{% if show_runtime_sections and mf.prereqs != blank and is_available %}
+  <section class="section rule" id="prereqs">
+    <div class="container">
+      <div class="section-head">
+        <span class="label">03 · What you'll need</span>
+        <h2>Prereqs.</h2>
+      </div>
+      <div class="toolkit-prereqs">
+        {{ mf.prereqs | metafield_tag }}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{%- comment -%} Sample prompt (Skills only) {%- endcomment -%}
+{% if show_runtime_sections and mf.sample_prompt != blank and is_available %}
+  <section class="section" id="sample-prompt">
+    <div class="container">
+      <div class="section-head">
+        <span class="label">04 · Sample prompt</span>
+        <h2>What you'll be running.</h2>
+      </div>
+      <pre class="toolkit-prompt"><code>{{ mf.sample_prompt }}</code></pre>
+    </div>
+  </section>
+{% endif %}
+
+{%- comment -%} FAQ {%- endcomment -%}
+{% if mf.faq != blank and is_available %}
+  <section class="section rule" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <span class="label">05 · FAQ</span>
+        <h2>Questions we get.</h2>
+      </div>
+      <div class="toolkit-faq">
+        {{ mf.faq | metafield_tag }}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{%- comment -%} Related packs {%- endcomment -%}
+{% if mf.related_handles != blank %}
+  <section class="section" id="related">
+    <div class="container">
+      <div class="section-head">
+        <span class="label">06 · Pairs well with</span>
+        <h2>Related packs.</h2>
+      </div>
+      <div class="toolkit-related">
+        {% for related in mf.related_handles.value %}
+          {%- liquid
+            assign rel_mf = related.metafields.lf_pack
+            assign rel_eyebrow = rel_mf.eyebrow | default: 'PACK'
+            assign rel_price = rel_mf.price_display | default: related.price | money
+            assign rel_avail = rel_mf.availability | default: 'available'
+          -%}
+          <a href="{{ related.url }}" class="toolkit-related__card">
+            <span class="toolkit-related__eyebrow">{{ rel_eyebrow }}</span>
+            <h3>{{ related.title }}</h3>
+            <span class="toolkit-related__meta">
+              {% if rel_avail == 'available' %}
+                {{ rel_price }}
+              {% else %}
+                Coming {{ rel_mf.coming_soon_target | default: 'soon' }}
+              {% endif %}
+            </span>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{%- comment -%} CTA strip — buy + office-hours upsell {%- endcomment -%}
+<section class="section rule" id="cta">
+  <div class="container">
+    <div class="toolkit-cta-strip">
+      <div class="toolkit-cta-strip__buy">
+        {% if is_available %}
+          <h2>{% if is_call %}Book the call.{% else %}Ready to install?{% endif %}</h2>
+          <p>{% if is_call %}Thirty minutes with Gabe or Collin. {{ price_display }}.{% else %}{{ price_display | default: product.price | money }}. Instant download. Fourteen-day refund.{% endif %}</p>
+          {% form 'product', product, class: 'toolkit-buy-form' %}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
+            <button type="submit" class="btn ember">{% if is_call %}Book the call{% else %}Buy now{% endif %}</button>
+          {% endform %}
+        {% else %}
+          <h2 id="notify">Coming {{ coming_soon_target | default: 'soon' }}.</h2>
+          <p>Drop your email. We'll write when this ships. No drip campaign, no sales sequence — just one message.</p>
+          <form action="/contact#contact_form" method="post" class="toolkit-notify-form">
+            <input type="hidden" name="form_type" value="contact" />
+            <input type="hidden" name="contact[tags]" value="toolkit-notify-{{ product.handle }}" />
+            <input type="hidden" name="contact[body]" value="Notify me when {{ product.title }} ships." />
+            <input type="email" name="contact[email]" placeholder="you@yourbrand.com" required />
+            <button type="submit" class="btn ember">Notify me</button>
+          </form>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Office-hours upsell — never on the office-hours page itself {%- endcomment -%}
+      {% unless is_call %}
+        <aside class="toolkit-cta-strip__upsell">
+          <span class="eyebrow"><span class="dot"></span> 30-MINUTE CALL · $199</span>
+          <h3>Stuck after install?<br/><em>Book the call.</em></h3>
+          <p>Sometimes the pack gets you eighty percent there and the last twenty percent is your specific setup. Book thirty minutes. We'll unblock you.</p>
+          <a class="btn ghost" href="{{ routes.root_url }}products/office-hours">Book office hours →</a>
+        </aside>
+      {% endunless %}
+    </div>
+  </div>
+</section>
+
+{%- comment -%} Page-specific styles. Inline because we don't want to bloat site.css for a single template. {%- endcomment -%}
+<style>
+  .toolkit-hero h1 { text-wrap: balance; }
+  .toolkit-hero__actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-top: 32px; }
+  .toolkit-hero__cs-meta { font-family: var(--lf-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lf-graphite); }
+  .toolkit-hero__price-note { margin-top: 16px; font-family: var(--lf-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lf-graphite); }
+
+  .toolkit-buy-form { display: inline; margin: 0; }
+  .toolkit-buy-form button { cursor: pointer; }
+
+  .toolkit-stripe { padding: 18px 0; border-bottom: 1px solid var(--lf-rule-quiet); background: var(--lf-paper); }
+  .toolkit-stripe__line { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; font-family: var(--lf-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lf-graphite); }
+  .toolkit-stripe__line .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--lf-ember); display: inline-block; }
+
+  .toolkit-inside, .toolkit-who, .toolkit-prereqs, .toolkit-faq { font-family: var(--lf-serif); font-weight: 350; font-size: 18px; line-height: 1.6; color: var(--lf-ink); max-width: 760px; }
+  .toolkit-inside ul, .toolkit-who ul, .toolkit-prereqs ul { list-style: none; padding: 0; }
+  .toolkit-inside li, .toolkit-prereqs li { padding: 16px 0; border-bottom: 1px solid var(--lf-rule-quiet); }
+  .toolkit-inside li strong, .toolkit-prereqs li strong { font-family: var(--lf-sans); font-weight: 600; font-size: 15px; letter-spacing: 0.01em; color: var(--lf-ink); display: block; margin-bottom: 4px; }
+
+  .toolkit-prompt { background: var(--lf-ink); color: var(--lf-paper); padding: 24px 28px; border-radius: 6px; font-family: var(--lf-mono); font-size: 14px; line-height: 1.55; overflow-x: auto; max-width: 760px; }
+
+  .toolkit-faq h3, .toolkit-faq strong { font-family: var(--lf-sans); font-weight: 600; font-size: 17px; color: var(--lf-ink); display: block; margin-top: 24px; margin-bottom: 6px; }
+
+  .toolkit-related { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .toolkit-related__card { display: flex; flex-direction: column; gap: 8px; padding: 28px; border: 1px solid var(--lf-ink); transition: background 220ms var(--lf-ease); }
+  .toolkit-related__card:hover { background: var(--lf-paper-warm, #f5f1e8); }
+  .toolkit-related__eyebrow { font-family: var(--lf-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lf-graphite); }
+  .toolkit-related__card h3 { font-family: var(--lf-serif); font-weight: 400; font-size: 24px; letter-spacing: -0.01em; color: var(--lf-ink); }
+  .toolkit-related__meta { font-family: var(--lf-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--lf-ember); margin-top: auto; }
+
+  .toolkit-cta-strip { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: start; }
+  @media (max-width: 720px) { .toolkit-cta-strip { grid-template-columns: 1fr; } }
+  .toolkit-cta-strip__buy h2 { font-family: var(--lf-serif); font-weight: 400; font-size: 36px; letter-spacing: -0.015em; line-height: 1.15; }
+  .toolkit-cta-strip__buy p { margin: 12px 0 24px; font-family: var(--lf-serif); font-style: italic; font-size: 18px; color: var(--lf-graphite); }
+  .toolkit-cta-strip__upsell { background: var(--lf-paper-warm, #f5f1e8); padding: 32px; border-left: 2px solid var(--lf-ember); }
+  .toolkit-cta-strip__upsell h3 { font-family: var(--lf-serif); font-weight: 400; font-size: 22px; line-height: 1.2; margin: 12px 0 8px; }
+  .toolkit-cta-strip__upsell p { font-family: var(--lf-serif); font-style: italic; font-size: 15px; color: var(--lf-graphite); margin-bottom: 16px; }
+
+  .toolkit-notify-form { display: flex; gap: 8px; flex-wrap: wrap; max-width: 480px; }
+  .toolkit-notify-form input[type="email"] { flex: 1; min-width: 220px; padding: 14px 16px; border: 1px solid var(--lf-ink); background: var(--lf-paper); font-family: var(--lf-sans); font-size: 15px; }
+  .toolkit-notify-form input[type="email"]:focus { outline: 2px solid var(--lf-ember); outline-offset: -1px; }
+</style>
+
+{% schema %}
+{
+  "name": "Toolkit Product",
+  "settings": []
+}
+{% endschema %}
