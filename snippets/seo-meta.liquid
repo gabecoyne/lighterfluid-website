@@ -51,6 +51,36 @@
     {%- assign meta_description = 'Free 30-minute call. If we are a fit, you will know in twenty minutes. We read every form personally and reply within two business days.' -%}
     {%- assign meta_path = '/pages/contact' -%}
 
+  {%- when 'speaking' -%}
+    {%- assign meta_title = 'Speaking — Lighter Fluid · Conferences · Podcasts · Workshops · Press' -%}
+    {%- assign meta_description = 'Operator speakers from Lighter Fluid. Six talk tracks on AI, productized consulting, brand-as-system, and operator-led growth. Conference keynote $10K. Workshop $15-25K. Editorial podcasts and press complimentary.' -%}
+    {%- assign meta_path = '/pages/speaking' -%}
+
+  {%- when 'install-inquiry' -%}
+    {%- assign meta_title = 'AI Install Inquiry — Lighter Fluid' -%}
+    {%- assign meta_description = 'Inquire about an AI Install with Lighter Fluid. 90-day project from $8K/mo. Capability area, kit count, timeline — we respond within two business days.' -%}
+    {%- assign meta_path = '/pages/install-inquiry' -%}
+
+  {%- when 'audit-inquiry' -%}
+    {%- assign meta_title = 'Audit Inquiry — Lighter Fluid · 2 weeks · $5K fixed price' -%}
+    {%- assign meta_description = 'Inquire about a Lighter Fluid Audit. Two-week diagnostic with a written 90-day install plan. $5K fixed price, credits toward Install. We respond within two business days.' -%}
+    {%- assign meta_path = '/pages/audit-inquiry' -%}
+
+  {%- when 'speaking-inquiry' -%}
+    {%- assign meta_title = 'Speaking Inquiry — Lighter Fluid' -%}
+    {%- assign meta_description = 'Inquire about a Lighter Fluid speaking engagement. Conferences, podcasts, workshops, press. Tell us event date, format, audience, and budget — we respond within two business days.' -%}
+    {%- assign meta_path = '/pages/speaking-inquiry' -%}
+
+  {%- when 'coaching-inquiry' -%}
+    {%- assign meta_title = 'Coaching Inquiry — Lighter Fluid · $4K/mo · Four slots' -%}
+    {%- assign meta_description = 'Inquire about Lighter Fluid Founder Coaching. Weekly working sessions for consumer-brand founders. $4K per month. Four slots only. We respond within two business days.' -%}
+    {%- assign meta_path = '/pages/coaching-inquiry' -%}
+
+  {%- when 'skill-setup-inquiry' -%}
+    {%- assign meta_title = 'Skill Setup and Support Inquiry — Lighter Fluid' -%}
+    {%- assign meta_description = 'Inquire about Lighter Fluid skill setup support. 90-minute working session to get an LF skill pack configured to your stack. $750 per session. Three-session bundle $1,800.' -%}
+    {%- assign meta_path = '/pages/skill-setup-inquiry' -%}
+
   {%- else -%}
     {%- assign meta_title = page.title | default: shop.name -%}
     {%- assign meta_description = page.content | strip_html | truncate: 160 | default: shop.description -%}
@@ -139,6 +169,39 @@
   {%- when 'about' -%}
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"AboutPage","mainEntity":[{"@type":"Person","name":"Gabe Coyne","jobTitle":"Founder, Lighter Fluid","email":"gabe@lighterfluid.co","worksFor":{"@type":"Organization","name":"Lighter Fluid"}},{"@type":"Person","name":"Collin Duff","jobTitle":"Co-Founder, Lighter Fluid","email":"collin@lighterfluid.co","worksFor":{"@type":"Organization","name":"Lighter Fluid"}}]}
+</script>
+
+  {%- when 'speaking' -%}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Service","name":"Speaking Engagements","provider":{"@type":"Organization","name":"Lighter Fluid","url":"https://lighterfluid.co/"},"description":"Speaking engagements from Gabe Coyne and Collin Duff of Lighter Fluid. Conferences, podcasts, workshops, and press interviews on AI for consumer brands, productized consulting, brand-as-system, and operator-led growth.","areaServed":"Worldwide","serviceType":"Speaking","offers":[{"@type":"Offer","name":"Conference Keynote","description":"45-60 minute talk customized to audience. Includes 30-minute prep call.","price":"10000","priceCurrency":"USD"},{"@type":"Offer","name":"Fireside / Panel","description":"30-45 minute moderated conversation or panel.","price":"5000","priceCurrency":"USD"},{"@type":"Offer","name":"Half-day Workshop","description":"Three-hour working session with custom prep.","price":"15000","priceCurrency":"USD"},{"@type":"Offer","name":"Full-day Workshop","description":"Six-to-seven-hour workshop with hands-on labs and takeaway packet.","price":"25000","priceCurrency":"USD"},{"@type":"Offer","name":"Branded Podcast","description":"Brand-owned or sponsored podcast appearance.","price":"2500","priceCurrency":"USD"},{"@type":"Offer","name":"Editorial Podcast","description":"Independent editorial podcast appearance. Always complimentary.","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Press / Editorial Interview","description":"Trade press, business press, or founder media interview. Always complimentary.","price":"0","priceCurrency":"USD"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does it cost to book Lighter Fluid for a speaking engagement?","acceptedAnswer":{"@type":"Answer","text":"Conference keynotes start at $10,000. Fireside or panel appearances are $5,000. Half-day workshops are $15,000; full-day workshops are $25,000. Branded podcast appearances are $2,500. Editorial podcasts and press interviews are complimentary. Travel billed at cost. Booking both speakers is 1.6x the single-speaker fee."}},{"@type":"Question","name":"What topics does Lighter Fluid speak on?","acceptedAnswer":{"@type":"Answer","text":"Six talk tracks: The Operator's AI Stack, Productized Consulting in the AI Era, Skills That Compound, Brand as System, AI for $10-200M Consumer Brands, and What Didn't Work."}},{"@type":"Question","name":"Who speaks on behalf of Lighter Fluid?","acceptedAnswer":{"@type":"Answer","text":"Gabe Coyne (Founder) and Collin Duff (Co-Founder). Either solo or together. Both are operators currently running multiple consumer brands."}},{"@type":"Question","name":"Does Lighter Fluid offer non-profit or education discounts on speaking fees?","acceptedAnswer":{"@type":"Answer","text":"Yes. Substantial discount for non-profits, education, and early-stage founder communities (pre-Series A). Please ask on the inquiry form."}},{"@type":"Question","name":"What is the lead time for booking Lighter Fluid?","acceptedAnswer":{"@type":"Answer","text":"Six weeks minimum for keynotes, eight for workshops, two for podcasts and press. Same-week press is fine."}}]}
+</script>
+
+  {%- when 'install-inquiry' -%}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ContactPage","name":"AI Install Inquiry","url":"https://lighterfluid.co/pages/install-inquiry","description":"Inquire about a Lighter Fluid AI Install. 90-day project from $8K/mo."}
+</script>
+
+  {%- when 'audit-inquiry' -%}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ContactPage","name":"Audit Inquiry","url":"https://lighterfluid.co/pages/audit-inquiry","description":"Inquire about a Lighter Fluid Audit. Two-week, $5K fixed-price diagnostic with a 90-day install plan."}
+</script>
+
+  {%- when 'speaking-inquiry' -%}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ContactPage","name":"Speaking Inquiry","url":"https://lighterfluid.co/pages/speaking-inquiry","description":"Inquire about a Lighter Fluid speaking engagement — conferences, podcasts, workshops, press."}
+</script>
+
+  {%- when 'coaching-inquiry' -%}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ContactPage","name":"Coaching Inquiry","url":"https://lighterfluid.co/pages/coaching-inquiry","description":"Inquire about Lighter Fluid Founder Coaching. $4K/mo, four slots."}
+</script>
+
+  {%- when 'skill-setup-inquiry' -%}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ContactPage","name":"Skill Setup and Support Inquiry","url":"https://lighterfluid.co/pages/skill-setup-inquiry","description":"Inquire about a Lighter Fluid skill-setup session. $750 per 90-minute working session."}
 </script>
 
 {%- endcase -%}
