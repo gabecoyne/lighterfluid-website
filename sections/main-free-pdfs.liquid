@@ -1,0 +1,292 @@
+{%- comment -%}
+  main-free-pdfs.liquid — Free playbook PDFs landing.
+  Used by templates/page.free-pdfs.json. Assigned to the "free-pdfs" page.
+
+  Each card is an email-capture form posting to Shopify's universal contact
+  endpoint (/contact#contact_form). Tag pattern: "lead-magnet-<pack-handle>".
+  A Shopify Flow listens for those tags and emails the corresponding PDF.
+
+  PDF URLs are stored on the product's lf_pack.lead_magnet_url metafield
+  (so this page stays in sync with whatever's uploaded to Shopify Files).
+{%- endcomment -%}
+
+{%- assign toolkit = collections['toolkit'] -%}
+
+<header class="hero short">
+  <div class="container">
+    <span class="eyebrow"><span class="dot"></span> FREE PLAYBOOKS · 12 PDFS</span>
+    <h1>The lighter version of every pack.<br/><em>Free. Email-delivered.</em></h1>
+    <p class="lede">A short playbook PDF for each of the twelve toolkit packs. Five to eight pages. The strategy, the structure, the why. Not the runnable artifact — that's the paid pack. But enough that a smart operator could rebuild a lot of it over a weekend.</p>
+  </div>
+</header>
+
+<section class="toolkit-stripe">
+  <div class="container">
+    <span class="toolkit-stripe__line">
+      <span>EMAIL-DELIVERED</span>
+      <span class="dot"></span>
+      <span>NO SPAM</span>
+      <span class="dot"></span>
+      <span>UNSUBSCRIBE ANYTIME</span>
+      <span class="dot"></span>
+      <span>FROM GABE OR COLLIN</span>
+    </span>
+  </div>
+</section>
+
+<section class="section rule" id="pdfs">
+  <div class="container">
+    <div class="section-head">
+      <span class="label">01 · The playbooks</span>
+      <h2>Twelve free PDFs.<br/><em>One per pack.</em></h2>
+    </div>
+
+    <p style="font-family:var(--lf-serif);font-style:italic;font-weight:350;font-size:18px;line-height:1.55;color:var(--lf-graphite);max-width:760px;margin-bottom:48px;">
+      Drop your email under any pack you want and we'll send the PDF. One email per request, no nurture flood. If you like the playbook, the paid pack ships the running infrastructure for $49–$249.
+    </p>
+
+    {% if toolkit and toolkit.products.size > 0 %}
+      <div class="freepdf-grid">
+        {% for product in toolkit.products %}
+          {%- liquid
+            assign mf = product.metafields.lf_pack
+            assign pdf_url = mf.lead_magnet_url
+            assign p_eyebrow = mf.eyebrow | default: 'PACK'
+            assign p_subhead = mf.subhead | default: product.description | strip_html | truncate: 140
+          -%}
+          <article class="freepdf-card">
+            <span class="freepdf-card__eyebrow">{{ p_eyebrow }}</span>
+            <h3>{{ product.title }}</h3>
+            <p>{{ p_subhead }}</p>
+
+            {% if pdf_url != blank %}
+              <form action="/contact#contact_form-{{ product.handle }}" method="post" class="freepdf-form" id="contact_form-{{ product.handle }}">
+                <input type="hidden" name="form_type" value="contact" />
+                <input type="hidden" name="utf8" value="✓" />
+                <input type="hidden" name="contact[tags]" value="lead-magnet,lead-magnet-{{ product.handle }}" />
+                <input type="hidden" name="contact[body]" value="Requested the {{ product.title }} overview PDF." />
+                <input type="hidden" name="contact[pack_handle]" value="{{ product.handle }}" />
+                <label for="email-{{ product.handle }}" class="freepdf-form__label">Send me this PDF</label>
+                <div class="freepdf-form__row">
+                  <input type="email" id="email-{{ product.handle }}" name="contact[email]" required placeholder="you@yourbrand.com" autocomplete="email" />
+                  <button type="submit" class="btn ember">Send</button>
+                </div>
+                <span class="freepdf-form__direct">
+                  Or read it directly: <a href="{{ pdf_url }}" target="_blank" rel="noopener">{{ product.title }} PDF →</a>
+                </span>
+              </form>
+            {% else %}
+              <div class="freepdf-card__notyet">
+                <span>PDF coming soon</span>
+                <a href="{{ product.url }}">See the pack →</a>
+              </div>
+            {% endif %}
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="toolkit-empty">
+        <p><em>The toolkit collection isn't set up yet.</em> Once the products are created and added to the collection with handle <code>toolkit</code>, this page will populate automatically.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section" id="how-it-works">
+  <div class="container">
+    <div class="section-head">
+      <span class="label">02 · How it works</span>
+      <h2>What happens after you submit.</h2>
+    </div>
+    <div class="freepdf-how">
+      <div class="freepdf-how__step">
+        <span class="num">01</span>
+        <h3>You submit.</h3>
+        <p>One email per request. We tag your customer record with the pack you asked about, nothing else.</p>
+      </div>
+      <div class="freepdf-how__step">
+        <span class="num">02</span>
+        <h3>We send the PDF.</h3>
+        <p>Within minutes, automated. From <code>gabe@lighterfluid.co</code>. Plain email, single attachment, no marketing template.</p>
+      </div>
+      <div class="freepdf-how__step">
+        <span class="num">03</span>
+        <h3>That's it.</h3>
+        <p>No drip sequence, no upsell flood. We may write you once a month with operator-grade notes. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section rule" id="cta">
+  <div class="container">
+    <div class="freepdf-cta">
+      <h2>Read a few. Buy the ones that earned it.</h2>
+      <p>The PDFs teach the strategy. The packs ship the running infrastructure. The bundle ships everything for $499 when all twelve are complete.</p>
+      <div class="actions">
+        <a class="btn ember" href="{{ routes.root_url }}pages/products">See the toolkit</a>
+        <a class="btn ghost" href="{{ routes.root_url }}products/office-hours">Book office hours · $199</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .freepdf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 24px;
+  }
+  .freepdf-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 32px;
+    border: 1px solid var(--lf-rule);
+    background: var(--lf-paper);
+  }
+  .freepdf-card__eyebrow {
+    font-family: var(--lf-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--lf-graphite);
+  }
+  .freepdf-card h3 {
+    font-family: var(--lf-serif);
+    font-weight: 400;
+    font-size: 24px;
+    letter-spacing: -0.01em;
+    color: var(--lf-ink);
+    line-height: 1.15;
+  }
+  .freepdf-card p {
+    font-family: var(--lf-serif);
+    font-weight: 350;
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--lf-graphite);
+    flex: 1;
+  }
+  .freepdf-card__notyet {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px dashed var(--lf-rule);
+    font-family: var(--lf-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lf-mute);
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .freepdf-card__notyet a { color: var(--lf-ember); }
+
+  .freepdf-form {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid var(--lf-rule);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .freepdf-form__label {
+    font-family: var(--lf-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lf-graphite);
+  }
+  .freepdf-form__row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .freepdf-form input[type="email"] {
+    flex: 1;
+    min-width: 180px;
+    padding: 12px 14px;
+    border: 1px solid var(--lf-ink);
+    background: var(--lf-paper);
+    font-family: var(--lf-sans);
+    font-size: 14px;
+    color: var(--lf-ink);
+  }
+  .freepdf-form input[type="email"]:focus {
+    outline: 2px solid var(--lf-ember);
+    outline-offset: -1px;
+  }
+  .freepdf-form .btn { white-space: nowrap; }
+  .freepdf-form__direct {
+    font-family: var(--lf-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lf-mute);
+  }
+  .freepdf-form__direct a { color: var(--lf-ember); }
+
+  .freepdf-how {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 32px;
+  }
+  .freepdf-how__step .num {
+    font-family: var(--lf-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--lf-ember);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .freepdf-how__step h3 {
+    font-family: var(--lf-serif);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    color: var(--lf-ink);
+  }
+  .freepdf-how__step p {
+    font-family: var(--lf-serif);
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--lf-graphite);
+  }
+  .freepdf-how__step code {
+    font-family: var(--lf-mono);
+    font-size: 13px;
+    background: var(--lf-paper-deep);
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+
+  .freepdf-cta { max-width: 720px; }
+  .freepdf-cta h2 {
+    font-family: var(--lf-serif);
+    font-weight: 400;
+    font-size: 32px;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .freepdf-cta p {
+    font-family: var(--lf-serif);
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--lf-graphite);
+    margin-bottom: 24px;
+  }
+  .freepdf-cta .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+</style>
+
+{% schema %}
+{
+  "name": "Free PDFs",
+  "settings": []
+}
+{% endschema %}
