@@ -83,11 +83,15 @@ img, svg { max-width: 100%; display: block; }
   height: 1px; background: var(--lf-ember);
 }
 .site-nav .nav-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 10px 18px;
   background: var(--lf-ink);
   color: var(--lf-paper);
   font-size: 13px;
   font-weight: 500;
+  line-height: 1;
   transition: background 220ms var(--lf-ease);
 }
 .site-nav .nav-cta:hover { background: var(--lf-ember); }
@@ -1052,14 +1056,21 @@ img, svg { max-width: 100%; display: block; }
    Mobile + responsive refinements (general)
    ========================================================================== */
 @media (max-width: 880px) {
+  /* Row-list mobile layout — num + h3 on top row, body and meta span both columns below */
   .row-list .row {
     grid-template-columns: 80px 1fr;
-    grid-template-rows: auto auto;
+    column-gap: 16px;
+    row-gap: 6px;
+    padding: 22px 0;
+  }
+  .row-list .row .body {
+    grid-column: 1 / -1;
+    margin-top: 4px;
   }
   .row-list .row .meta {
-    grid-column: 2;
+    grid-column: 1 / -1;
     text-align: left;
-    margin-top: 4px;
+    margin-top: 2px;
   }
   .cta-block { padding: 36px 24px; }
   .cta-block h2 { font-size: 28px; }
