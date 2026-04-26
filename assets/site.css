@@ -1103,6 +1103,8 @@ img, svg { max-width: 100%; display: block; }
 @media (max-width: 720px) {
   .hero { padding: 80px 0 64px; }
   .hero.short { padding: 64px 0 48px; }
+  .hero h1 { font-size: 54px; }
+  .hero.short h1 { font-size: 44px; }
   .section { padding-top: var(--lf-section-y-sm); padding-bottom: var(--lf-section-y-sm); }
   .pullquote { font-size: 22px; padding-left: 18px; }
   .section-head { gap: 16px; margin-bottom: 40px; }
