@@ -34,10 +34,14 @@
     </button>
 
     <ul id="site-nav-menu">
-      <li><a class="nav-link{% if current == 'home' %} is-active{% endif %}" href="{{ routes.root_url }}">Home</a></li>
-      <li><a class="nav-link{% if current == 'implementation' %} is-active{% endif %}" href="{{ routes.root_url }}pages/implementation">AI Install</a></li>
-      <li><a class="nav-link{% if current == 'coaching' %} is-active{% endif %}" href="{{ routes.root_url }}pages/coaching">Founder Coaching</a></li>
-      <li><a class="nav-link{% if template contains 'collection' or template contains 'product' %} is-active{% endif %}" href="{{ routes.root_url }}collections/toolkit">Toolkit</a></li>
+      <li><a class="nav-link{% if current == 'products' or template contains 'collection' or template contains 'product' %} is-active{% endif %}" href="{{ routes.root_url }}pages/products">Products</a></li>
+      <li class="has-submenu">
+        <a class="nav-link{% if current == 'implementation' or current == 'coaching' %} is-active{% endif %}" href="#" onclick="event.preventDefault();this.parentElement.classList.toggle('is-open');">Services</a>
+        <ul class="submenu">
+          <li><a href="{{ routes.root_url }}pages/implementation">AI Install</a></li>
+          <li><a href="{{ routes.root_url }}pages/coaching">Founder Coaching</a></li>
+        </ul>
+      </li>
       <li><a class="nav-link{% if current == 'work' %} is-active{% endif %}" href="{{ routes.root_url }}pages/work">Work</a></li>
       <li><a class="nav-link{% if current == 'about' %} is-active{% endif %}" href="{{ routes.root_url }}pages/about">About</a></li>
     </ul>

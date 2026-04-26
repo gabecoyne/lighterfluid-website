@@ -153,17 +153,30 @@
           <span style="margin-left:auto;font-family:var(--lf-mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--lf-graphite);">Built for you</span>
         </div>
 
-        <div class="row-2col asym" style="padding-top:24px;">
-          <div>
-            <p style="font-family:var(--lf-serif);font-style:italic;font-weight:350;font-size:19px;line-height:1.5;color:var(--lf-graphite);">
-              We built every skill above for our own businesses. We can build new ones for yours.
-            </p>
-          </div>
-          <div class="prose">
-            <p>The catalog is the menu we install most often, but it isn't the limit. If your business has a workflow that's clearly worth automating and isn't represented here, we'll scope it on the call and build it inside the same 90-day frame.</p>
-            <p><strong>Examples we'd consider building:</strong> review-response skills (Trustpilot, Yotpo, Google Reviews), wholesale order intake automation, customer-success ticket triage, supplier RFQ pipelines, custom forecast-pacing dashboards, founder-letter ghostwriting, partner outreach engines.</p>
-            <p><strong>What custom typically costs:</strong> Each net-new skill adds $5K/mo to the engagement. Genuinely novel skills (new architecture, new integrations) we'll quote separately. Either way: documented for handoff like every other skill.</p>
-            <p><strong>What we won't build:</strong> Skills that touch financial transactions, healthcare records, or other high-stakes domains where operator credibility doesn't transfer.</p>
+        <div style="padding-top:24px;">
+          <p class="pullquote" style="margin-bottom:32px;">We built every skill above for our own businesses. We can build new ones for yours.</p>
+
+          <div class="tile-grid">
+            <div class="tile">
+              <span class="num">Custom · 01</span>
+              <h3>The catalog is the menu, not the limit.</h3>
+              <p>If your business has a workflow worth automating that isn't represented here, we'll scope it on the call and build it inside the same 90-day frame.</p>
+            </div>
+            <div class="tile">
+              <span class="num">Custom · 02</span>
+              <h3>Examples we'd consider building.</h3>
+              <p>Review-response (Trustpilot, Yotpo, Google), wholesale order intake, customer-success triage, supplier RFQ pipelines, custom forecast-pacing dashboards, partner outreach engines.</p>
+            </div>
+            <div class="tile">
+              <span class="num">Custom · 03</span>
+              <h3>What custom costs.</h3>
+              <p>Each net-new skill adds $5K/mo to the engagement. Genuinely novel skills (new architecture, new integrations) we quote separately. Documented for handoff either way.</p>
+            </div>
+            <div class="tile">
+              <span class="num">Custom · 04</span>
+              <h3>What we won't build.</h3>
+              <p>Skills that touch financial transactions, healthcare records, or other high-stakes domains where operator credibility doesn't transfer.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -238,27 +251,43 @@
 
   <!-- ============ HOW IT RUNS ============ -->
   <section class="section rule">
-    <div class="container narrow">
+    <div class="container">
       <div class="section-head">
         <span class="label">04 · How a 90-day implementation runs</span>
         <h2>Twelve weeks.<br/><em>Same shape every time.</em></h2>
       </div>
 
-      <div class="prose">
-        <h3>Week 0 — Kickoff (1 hour)</h3>
-        <p>Two operators on our side. Whoever owns the work on yours. We agree on three things in writing: what success looks like at day 90, who gives feedback, what's out of scope. Pinned to your wiki by end of day.</p>
-
-        <h3>Weeks 1–2 — Read and decide</h3>
-        <p>We read your stack. APIs, dashboards, Slack history, agency reports, the brand guide PDF that's three years old, the spreadsheet that's actually how the business runs. We interview operators. By end of week two, we've confirmed the skills and the order, with your approval.</p>
-
-        <h3>Weeks 3–7 — Build and shadow</h3>
-        <p>Each skill ships in shadow mode first — running in parallel with manual processes, sending its outputs to a draft inbox or private Slack channel. Shadow runs surface edge cases the briefing missed. Most weeks we're rewriting prompts based on what shadow produced.</p>
-
-        <h3>Weeks 8–10 — Live and tune</h3>
-        <p>Skills go live one at a time. Shadow logs run for a week after each go-live. Tuning happens in three places: the prompt, the script, the runbook. The runbook is the document a future ops person will read at 6am when something breaks.</p>
-
-        <h3>Weeks 11–12 — Handoff and write-up</h3>
-        <p>Two ninety-minute training sessions with your team. One operational, one editorial. The framework library is reviewed against your context. Everything gets committed to your repo. We hand the keys and step out.</p>
+      <div class="row-list">
+        <div class="row">
+          <div class="num">Week 0</div>
+          <div><h3>Kickoff</h3></div>
+          <div class="body">Both operators in the room. We agree in writing on what success looks like at day 90, who gives feedback, what's out of scope. Pinned to your wiki by end of day.</div>
+          <div class="meta">1 hour</div>
+        </div>
+        <div class="row">
+          <div class="num">Weeks 1–2</div>
+          <div><h3>Read and decide</h3></div>
+          <div class="body">We read your stack — APIs, dashboards, Slack history, agency reports, the spreadsheet that's actually how the business runs. We interview operators. End of week two: skills confirmed, order set.</div>
+          <div class="meta">Audit</div>
+        </div>
+        <div class="row">
+          <div class="num">Weeks 3–7</div>
+          <div><h3>Build and shadow</h3></div>
+          <div class="body">Each skill ships in shadow mode first — running parallel to manual processes, outputs to a draft inbox. Shadow surfaces edge cases the briefing missed. Most weeks we're rewriting prompts based on what shadow produced.</div>
+          <div class="meta">Build</div>
+        </div>
+        <div class="row">
+          <div class="num">Weeks 8–10</div>
+          <div><h3>Live and tune</h3></div>
+          <div class="body">Skills go live one at a time. Shadow logs run a week after each go-live. Tuning happens in three places: the prompt, the script, the runbook. The runbook is what a future ops person reads at 6am when something breaks.</div>
+          <div class="meta">Launch</div>
+        </div>
+        <div class="row">
+          <div class="num">Weeks 11–12</div>
+          <div><h3>Handoff and write-up</h3></div>
+          <div class="body">Two 90-minute training sessions — one operational, one editorial. Framework library reviewed against your context. Everything committed to your repo. We hand the keys and step out.</div>
+          <div class="meta">Handoff</div>
+        </div>
       </div>
     </div>
   </section>
@@ -284,8 +313,8 @@
         <h2>Best for.<br/><em>And not for.</em></h2>
       </div>
 
-      <div class="row-2col">
-        <div class="prose">
+      <div class="yesno">
+        <div class="col yes">
           <h3>Best for</h3>
           <ul>
             <li>Consumer brands (DTC + omnichannel) at $5M–$200M annual revenue.</li>
@@ -295,14 +324,14 @@
             <li>Brands at a 1.5x+ growth posture — the operating system pays back when volume scales.</li>
           </ul>
         </div>
-        <div class="prose">
-          <h3 style="color:var(--lf-ember);">Where we'll say no</h3>
+        <div class="col no">
+          <h3>Where we'll say no</h3>
           <ul>
-            <li><strong style="color:var(--lf-ember);">No</strong> pre-revenue startups. Apply the playbook too early and you're optimizing for problems you don't have yet.</li>
-            <li><strong style="color:var(--lf-ember);">No</strong> manufacturing, healthcare, financial services, or regulated industries. Operator credibility doesn't transfer.</li>
-            <li><strong style="color:var(--lf-ember);">No</strong> outsourcing of judgment. Every skill is operator-in-the-loop, not autonomous decisioning.</li>
-            <li><strong style="color:var(--lf-ember);">No</strong> embedded vendor relationships. We won't be your fractional team for six months.</li>
-            <li><strong style="color:var(--lf-ember);">No</strong> mid-six-figure project costs upfront. If procurement has to approve it, we're the wrong vendor.</li>
+            <li>Pre-revenue startups. Optimizing for problems you don't have yet.</li>
+            <li>Manufacturing, healthcare, financial services, regulated industries — operator credibility doesn't transfer.</li>
+            <li>Outsourcing of judgment. Every skill is operator-in-the-loop, not autonomous.</li>
+            <li>Embedded vendor relationships. We won't be your fractional team for six months.</li>
+            <li>Mid-six-figure upfront project costs. If procurement has to approve it, we're the wrong vendor.</li>
           </ul>
         </div>
       </div>

@@ -82,6 +82,52 @@ img, svg { max-width: 100%; display: block; }
   left: 0; right: 0; bottom: -22px;
   height: 1px; background: var(--lf-ember);
 }
+
+/* Dropdown submenu (desktop hover / mobile click) */
+.site-nav .has-submenu { position: relative; }
+.site-nav .has-submenu > .nav-link::after {
+  content: " ⌄";
+  font-size: 11px;
+  letter-spacing: 0;
+  color: var(--lf-mute);
+  position: static;
+  background: transparent;
+  display: inline;
+}
+.site-nav .submenu {
+  position: absolute;
+  top: 100%;
+  left: -16px;
+  min-width: 220px;
+  margin-top: 14px;
+  padding: 8px 0;
+  background: var(--lf-paper);
+  border: 1px solid var(--lf-rule);
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  z-index: 50;
+  box-shadow: 0 6px 24px rgba(20, 20, 20, 0.06);
+}
+.site-nav .has-submenu:hover > .submenu,
+.site-nav .has-submenu:focus-within > .submenu {
+  display: flex;
+}
+.site-nav .submenu li { padding: 0; }
+.site-nav .submenu a {
+  display: block;
+  padding: 12px 20px;
+  font-family: var(--lf-sans);
+  font-size: 14px;
+  color: var(--lf-ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--lf-rule-quiet);
+}
+.site-nav .submenu li:last-child a { border-bottom: 0; }
+.site-nav .submenu a:hover {
+  background: var(--lf-paper-deep);
+  color: var(--lf-ember);
+}
 .site-nav .nav-cta {
   display: inline-flex;
   align-items: center;
@@ -819,6 +865,126 @@ img, svg { max-width: 100%; display: block; }
 }
 
 /* ==========================================================================
+   Tile grid — eyebrow num + heading + body
+   Used for: how-we-work principles, beliefs, positioning rules
+   ========================================================================== */
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--lf-rule);
+  border: 1px solid var(--lf-rule);
+}
+.tile-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.tile-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.tile {
+  background: var(--lf-paper);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.tile .num {
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lf-ember);
+}
+.tile h3 {
+  font-family: var(--lf-serif);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--lf-ink);
+  text-wrap: balance;
+}
+.tile p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--lf-ink-soft);
+  text-wrap: pretty;
+  margin: 0;
+}
+.tile.dark { background: var(--lf-charcoal); }
+.tile.dark h3 { color: var(--lf-on-dark); }
+.tile.dark p { color: var(--lf-on-dark-soft); }
+.tile.dark .num { color: var(--lf-ember); }
+
+/* ==========================================================================
+   Yes / No columns — comparison rows
+   Used for: "We will / We won't"
+   ========================================================================== */
+.yesno {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border: 1px solid var(--lf-rule);
+}
+.yesno > .col {
+  padding: 28px 28px 32px;
+}
+.yesno > .col + .col { border-left: 1px solid var(--lf-rule); }
+.yesno .col h3 {
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--lf-graphite);
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--lf-rule-quiet);
+}
+.yesno .col.yes h3::before { content: "✓ "; color: var(--lf-ember); font-weight: 600; }
+.yesno .col.no  h3::before { content: "✕ "; color: var(--lf-graphite); }
+.yesno ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.yesno li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--lf-ink);
+  text-wrap: pretty;
+}
+.yesno .col.yes li::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--lf-ember);
+  font-family: var(--lf-mono);
+  font-weight: 600;
+}
+.yesno .col.no li::before {
+  content: "×";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--lf-graphite);
+  font-family: var(--lf-mono);
+  font-weight: 600;
+}
+
+@media (max-width: 880px) {
+  .tile-grid,
+  .tile-grid.cols-3,
+  .tile-grid.cols-4 {
+    grid-template-columns: 1fr;
+  }
+  .tile { padding: 24px 22px; }
+  .yesno { grid-template-columns: 1fr; }
+  .yesno > .col + .col { border-left: 0; border-top: 1px solid var(--lf-rule); }
+}
+
+/* ==========================================================================
    CTA block (page closers)
    ========================================================================== */
 .cta-block {
@@ -1284,6 +1450,25 @@ img, svg { max-width: 100%; display: block; }
     margin-right: 8px;
     display: inline-block;
   }
+  /* Submenu collapses inline on mobile, no popover */
+  .site-nav .has-submenu > .nav-link::after { display: none; }
+  .site-nav .submenu {
+    position: static;
+    display: flex;
+    margin: 0 0 0 16px;
+    padding: 0 0 8px;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+    min-width: 0;
+  }
+  .site-nav .submenu a {
+    padding: 10px 4px;
+    border-bottom: 0;
+    font-size: 14px;
+    color: var(--lf-graphite);
+  }
+  .site-nav .submenu a::before { content: "· "; color: var(--lf-mute); }
 }
 
 /* ==========================================================================

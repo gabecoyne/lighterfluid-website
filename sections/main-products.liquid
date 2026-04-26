@@ -1,0 +1,59 @@
+{%- comment -%}
+  main-products.liquid — body content for the Products page.
+  Edit this file to update the page. No section editor in admin.
+  SEO + JSON-LD live in snippets/seo-meta.liquid (context-aware via page.handle).
+{%- endcomment -%}
+
+<header class="hero short">
+    <div class="container">
+      <span class="eyebrow"><span class="dot"></span> Products · Skills you can install yourself</span>
+      <h1>The skills we run.<br/><em>Packaged for you.</em></h1>
+      <p class="lede">The same nightly media buyer, comment marketing automation, and CRO test framework we run inside Stix and Host Modern — packaged as installable zips with config templates, scripts, and runbooks. Free PDFs to start. Memberships if you want everything.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="label">In progress</span>
+        <h2>Catalog launching soon.<br/><em>Want early access?</em></h2>
+      </div>
+
+      <div class="tile-grid">
+        <div class="tile">
+          <span class="num">Tier · 01</span>
+          <h3>Free PDF</h3>
+          <p>An 8–12 page guide for each skill. Architecture diagram, prompt logic, metrics it watches, sample outputs. Enough that a smart operator could rebuild it over a weekend.</p>
+        </div>
+        <div class="tile">
+          <span class="num">Tier · 02</span>
+          <h3>Skill download · $99–$499</h3>
+          <p>The full zip — SKILL.md, scripts, references, config templates, installation guide. Self-install. Single-org commercial license. The same files we use ourselves.</p>
+        </div>
+        <div class="tile">
+          <span class="num">Tier · 03</span>
+          <h3>Implementation call · $500</h3>
+          <p>30-minute working session with Gabe or Collin. We wire the skill into your stack on the call. Sold inline with any skill download, or stand-alone.</p>
+        </div>
+        <div class="tile">
+          <span class="num">Tier · 04</span>
+          <h3>Membership</h3>
+          <p>Every current and future skill. Monthly office hours. Operator+ tier adds a quarterly implementation call and a private Slack. Sized for operators, not enterprises.</p>
+        </div>
+      </div>
+
+      <div class="cta-block dark" style="margin-top:64px;">
+        <h2>First skills ship in weeks.<br/><em>Get the early-access list.</em></h2>
+        <div class="actions">
+          <a class="btn ember" href="{{ routes.root_url }}pages/contact">Get on the list</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": "Main · Products",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,182 @@
+{%- comment -%}
+  main-collection-toolkit.liquid — collection hub for the Toolkit.
+  Renders all products in the "toolkit" collection with merchandising treatment
+  based on lf_pack metafields (eyebrow, price_display, availability, coming_soon_target).
+
+  Used by templates/collection.toolkit.json. Assign that template to the toolkit collection
+  in Shopify admin.
+{%- endcomment -%}
+
+<header class="hero short toolkit-collection-hero">
+  <div class="container">
+    <span class="eyebrow"><span class="dot"></span> THE LIGHTER FLUID TOOLKIT · 12 PACKS</span>
+    <h1>The brand stack we use.<br/>Productized. <em>One pack at a time.</em></h1>
+    <p class="lede">Twelve digital products covering brand, design, website, ads, email, and full-campaign orchestration. Each pack is a documented system you can install in a weekend. Three are available now. The other nine ship between May and September 2026.</p>
+    <div class="actions toolkit-collection-hero__actions">
+      <a class="btn ember" href="#packs">See the packs</a>
+      <a class="btn ghost" href="{{ routes.root_url }}products/office-hours">Book office hours · $199</a>
+    </div>
+  </div>
+</header>
+
+<section class="toolkit-stripe">
+  <div class="container">
+    <span class="toolkit-stripe__line">
+      <span>3 AVAILABLE NOW</span>
+      <span class="dot"></span>
+      <span>9 COMING SOON</span>
+      <span class="dot"></span>
+      <span>BUNDLE · $499</span>
+      <span class="dot"></span>
+      <span>OFFICE HOURS · $199</span>
+    </span>
+  </div>
+</section>
+
+<section class="section rule" id="packs">
+  <div class="container">
+    <div class="section-head">
+      <span class="label">01 · The packs</span>
+      <h2>Twelve packs.<br/><em>One brand stack.</em></h2>
+    </div>
+
+    <p class="toolkit-collection-intro">Listed in build order. Most teams buy out of order — that's fine. The packs are designed to install independently. The <a href="{{ routes.root_url }}products/define-your-brand">Brand</a>, <a href="{{ routes.root_url }}products/build-your-design-system">Design System</a>, and <a href="{{ routes.root_url }}products/build-your-wiki">Wiki</a> packs ship today.</p>
+
+    <div class="toolkit-grid">
+      {% for product in collection.products %}
+        {%- liquid
+          assign mf = product.metafields.lf_pack
+          assign p_eyebrow = mf.eyebrow | default: 'PACK'
+          assign p_subhead = mf.subhead | default: product.description | truncate: 140
+          assign p_price = mf.price_display | default: product.price | money
+          assign p_avail = mf.availability | default: 'available'
+          assign p_target = mf.coming_soon_target
+        -%}
+        <a href="{{ product.url }}" class="toolkit-card toolkit-card--{{ p_avail }}">
+          <div class="toolkit-card__head">
+            <span class="toolkit-card__eyebrow">{{ p_eyebrow }}</span>
+            {% if p_avail == 'coming-soon' %}
+              <span class="toolkit-card__badge">Coming {{ p_target | default: 'soon' }}</span>
+            {% endif %}
+          </div>
+          <h3>{{ product.title }}</h3>
+          <p>{{ p_subhead }}</p>
+          <span class="toolkit-card__cta">
+            {% if p_avail == 'available' %}
+              {{ p_price }} →
+            {% else %}
+              Notify me →
+            {% endif %}
+          </span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="bundle-callout">
+  <div class="container">
+    <div class="toolkit-bundle-callout">
+      <div class="toolkit-bundle-callout__copy">
+        <span class="eyebrow"><span class="dot"></span> BUNDLE · ALL TWELVE PACKS</span>
+        <h2>Buy them once.<br/><em>Get every future update free.</em></h2>
+        <p>All twelve packs and every future revision for $499 — less than half the per-pack price. Ships when 12/12 are complete in Q3 2026.</p>
+        <a class="btn ember" href="{{ routes.root_url }}products/toolkit-bundle">See the bundle</a>
+      </div>
+      <div class="toolkit-bundle-callout__meta">
+        <dl>
+          <dt>Packs</dt><dd>12</dd>
+          <dt>Lighter playbook PDFs</dt><dd>12</dd>
+          <dt>Future updates</dt><dd>Included</dd>
+          <dt>Refund window</dt><dd>14 days</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section rule" id="how">
+  <div class="container">
+    <div class="section-head">
+      <span class="label">02 · How this works</span>
+      <h2>What you get when you buy.</h2>
+    </div>
+    <div class="toolkit-how">
+      <div class="toolkit-how__step">
+        <span class="num">01</span>
+        <h3>Instant download.</h3>
+        <p>Buy a pack. Shopify emails you a download link. Open the zip. Read the README first.</p>
+      </div>
+      <div class="toolkit-how__step">
+        <span class="num">02</span>
+        <h3>The lighter PDF first.</h3>
+        <p>Every pack ships with a playbook PDF that explains what's inside, why it works, and how to install. Read it before touching the files.</p>
+      </div>
+      <div class="toolkit-how__step">
+        <span class="num">03</span>
+        <h3>Install it.</h3>
+        <p>Playbook packs are templates and rules — fill them in. Skill packs ship a SKILL.md and supporting scripts that drop into Claude Code or Cowork.</p>
+      </div>
+      <div class="toolkit-how__step">
+        <span class="num">04</span>
+        <h3>Stuck? Office hours.</h3>
+        <p>Thirty-minute call with Gabe or Collin for $199. Live screen-share, your actual setup, real unblock.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="not-for-you">
+  <div class="container">
+    <div class="section-head">
+      <span class="label">03 · When this isn't the right tool</span>
+      <h2>You probably want Implementation instead.</h2>
+    </div>
+    <p class="toolkit-not-for-you">The packs are for founders and operators willing to install on their own. If you'd rather we install end-to-end on your infrastructure with documented handoff to your team, the <a href="{{ routes.root_url }}pages/implementation">AI Install</a> product is built for that. If you want a weekly working session with the founders and don't need installed infrastructure yet, the <a href="{{ routes.root_url }}pages/coaching">Founder Coaching</a> product is the fit. The Toolkit is the third option — the one for people who'd rather build it themselves with our system as the starting point.</p>
+  </div>
+</section>
+
+<style>
+  .toolkit-collection-hero h1 { text-wrap: balance; }
+  .toolkit-collection-hero__actions { margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .toolkit-collection-intro { font-family: var(--lf-serif); font-style: italic; font-weight: 350; font-size: 18px; line-height: 1.55; color: var(--lf-graphite); max-width: 760px; margin-bottom: 56px; }
+  .toolkit-collection-intro a { color: var(--lf-ember); text-decoration: underline; text-underline-offset: 3px; }
+
+  .toolkit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+  .toolkit-card { display: flex; flex-direction: column; gap: 12px; padding: 32px; border: 1px solid var(--lf-ink); background: var(--lf-paper); transition: background 220ms var(--lf-ease), transform 220ms var(--lf-ease); position: relative; }
+  .toolkit-card:hover { background: var(--lf-paper-warm, #f5f1e8); transform: translateY(-2px); }
+  .toolkit-card--coming-soon { opacity: 0.78; }
+  .toolkit-card--coming-soon:hover { opacity: 1; }
+  .toolkit-card__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .toolkit-card__eyebrow { font-family: var(--lf-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lf-graphite); }
+  .toolkit-card__badge { font-family: var(--lf-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--lf-paper); background: var(--lf-graphite); padding: 4px 8px; border-radius: 2px; }
+  .toolkit-card h3 { font-family: var(--lf-serif); font-weight: 400; font-size: 26px; letter-spacing: -0.015em; color: var(--lf-ink); line-height: 1.15; }
+  .toolkit-card p { font-family: var(--lf-serif); font-weight: 350; font-style: italic; font-size: 15px; line-height: 1.5; color: var(--lf-graphite); flex: 1; }
+  .toolkit-card__cta { font-family: var(--lf-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lf-ember); margin-top: auto; }
+
+  .toolkit-bundle-callout { display: grid; grid-template-columns: 1.6fr 1fr; gap: 64px; align-items: center; padding: 56px 48px; background: var(--lf-ink); color: var(--lf-paper); }
+  @media (max-width: 720px) { .toolkit-bundle-callout { grid-template-columns: 1fr; padding: 40px 32px; gap: 32px; } }
+  .toolkit-bundle-callout .eyebrow { color: var(--lf-paper); }
+  .toolkit-bundle-callout h2 { font-family: var(--lf-serif); font-weight: 400; font-size: 40px; letter-spacing: -0.015em; line-height: 1.1; color: var(--lf-paper); }
+  .toolkit-bundle-callout h2 em { color: var(--lf-ember); }
+  .toolkit-bundle-callout p { font-family: var(--lf-serif); font-style: italic; font-size: 17px; line-height: 1.55; color: rgba(250, 248, 243, 0.8); margin: 16px 0 24px; }
+  .toolkit-bundle-callout dl { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  .toolkit-bundle-callout dt { font-family: var(--lf-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(250, 248, 243, 0.6); }
+  .toolkit-bundle-callout dd { font-family: var(--lf-serif); font-size: 22px; line-height: 1; color: var(--lf-paper); padding-bottom: 14px; border-bottom: 1px solid rgba(250, 248, 243, 0.2); }
+  .toolkit-bundle-callout dd:last-child { border-bottom: 0; }
+
+  .toolkit-how { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; }
+  .toolkit-how__step .num { font-family: var(--lf-mono); font-size: 11px; letter-spacing: 0.18em; color: var(--lf-ember); display: block; margin-bottom: 8px; }
+  .toolkit-how__step h3 { font-family: var(--lf-serif); font-weight: 400; font-size: 22px; line-height: 1.2; margin-bottom: 8px; color: var(--lf-ink); }
+  .toolkit-how__step p { font-family: var(--lf-serif); font-style: italic; font-size: 15px; line-height: 1.5; color: var(--lf-graphite); }
+
+  .toolkit-not-for-you { font-family: var(--lf-serif); font-weight: 350; font-size: 18px; line-height: 1.6; color: var(--lf-ink); max-width: 800px; }
+  .toolkit-not-for-you a { color: var(--lf-ember); text-decoration: underline; text-underline-offset: 3px; }
+</style>
+
+{% schema %}
+{
+  "name": "Toolkit Collection",
+  "settings": []
+}
+{% endschema %}
