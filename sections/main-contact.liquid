@@ -38,73 +38,103 @@
         </div>
 
         <div>
-          <form class="form" onsubmit="event.preventDefault();alert('Form is a mockup — wire to Formspree or your CRM before going live.');">
-            <div class="field">
-              <label for="name">Your name</label>
-              <input id="name" type="text" required />
-            </div>
+          {%- comment -%}
+            Native Shopify contact form. Submissions email the shop's contact
+            address (Settings → General → Senders / Customer email).
+            Custom fields (Company, Role, Revenue, Interest, Capability) are
+            included in the email body labeled by their field name.
+          {%- endcomment -%}
+          {%- form 'contact', class: 'form' -%}
+            {%- if form.posted_successfully? -%}
+              <div style="padding:32px 28px;border:1px solid var(--lf-ember);background:var(--lf-ember-soft);">
+                <span class="eyebrow" style="color:var(--lf-ember);"><span class="dot"></span> Sent</span>
+                <h3 style="font-family:var(--lf-serif);font-weight:400;font-size:24px;line-height:1.2;letter-spacing:-0.01em;margin-top:12px;color:var(--lf-ink);">
+                  Thanks — we got it.
+                </h3>
+                <p style="margin-top:12px;font-size:15px;line-height:1.6;color:var(--lf-ink-soft);">
+                  Within two business days you'll hear back from Gabe or Collin directly. If we're a fit, we'll schedule a 30-minute call. If we're not, we'll tell you why and refer you on.
+                </p>
+              </div>
+            {%- else -%}
+              {%- if form.errors -%}
+                <div style="padding:18px 22px;border:1px solid var(--lf-negative,#9c2c1c);background:#fdecea;margin-bottom:24px;color:var(--lf-negative,#9c2c1c);font-size:14px;line-height:1.55;">
+                  <strong>Something needs fixing:</strong>
+                  <ul style="margin:8px 0 0 18px;list-style:disc;">
+                    {%- for field in form.errors -%}
+                      <li>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              {%- endif -%}
 
-            <div class="field">
-              <label for="email">Email</label>
-              <input id="email" type="email" required />
-            </div>
+              <div class="field">
+                <label for="contact-name">Your name</label>
+                <input id="contact-name" name="contact[name]" type="text" autocomplete="name" required />
+              </div>
 
-            <div class="field">
-              <label for="company">Company</label>
-              <input id="company" type="text" required />
-            </div>
+              <div class="field">
+                <label for="contact-email">Email</label>
+                <input id="contact-email" name="contact[email]" type="email" autocomplete="email" required />
+              </div>
 
-            <div class="field">
-              <label for="role">Your role</label>
-              <input id="role" type="text" placeholder="Founder / CEO / VP Growth / etc." />
-            </div>
+              <div class="field">
+                <label for="contact-company">Company</label>
+                <input id="contact-company" name="contact[Company]" type="text" required />
+              </div>
 
-            <div class="field">
-              <label for="size">Annual revenue range</label>
-              <select id="size">
-                <option value="">Select range</option>
-                <option>Under $5M</option>
-                <option>$5M – $15M</option>
-                <option>$15M – $50M</option>
-                <option>$50M – $150M</option>
-                <option>$150M+</option>
-                <option>Pre-revenue / haven't launched</option>
-              </select>
-            </div>
+              <div class="field">
+                <label for="contact-role">Your role</label>
+                <input id="contact-role" name="contact[Role]" type="text" placeholder="Founder / CEO / VP Growth / etc." />
+              </div>
 
-            <div class="field">
-              <label for="interest">What you're interested in</label>
-              <select id="interest">
-                <option value="">Select</option>
-                <option>Implementation (90 days)</option>
-                <option>Coaching ($4K/mo)</option>
-                <option>Not sure — let's talk</option>
-              </select>
-            </div>
+              <div class="field">
+                <label for="contact-size">Annual revenue range</label>
+                <select id="contact-size" name="contact[Revenue range]">
+                  <option value="">Select range</option>
+                  <option>Under $5M</option>
+                  <option>$5M – $15M</option>
+                  <option>$15M – $50M</option>
+                  <option>$50M – $150M</option>
+                  <option>$150M+</option>
+                  <option>Pre-revenue / haven't launched</option>
+                </select>
+              </div>
 
-            <div class="field">
-              <label for="capability">Capability area (if relevant)</label>
-              <select id="capability">
-                <option value="">Select if known</option>
-                <option>Brand</option>
-                <option>Marketing</option>
-                <option>Ecom</option>
-                <option>Operations</option>
-                <option>Product</option>
-                <option>More than one</option>
-                <option>Not sure yet</option>
-              </select>
-            </div>
+              <div class="field">
+                <label for="contact-interest">What you're interested in</label>
+                <select id="contact-interest" name="contact[Interest]">
+                  <option value="">Select</option>
+                  <option>AI Install (90 days)</option>
+                  <option>Founder Coaching ($4K/mo)</option>
+                  <option>Not sure — let's talk</option>
+                </select>
+              </div>
 
-            <div class="field">
-              <label for="message">What's on your mind?</label>
-              <textarea id="message" placeholder="The 1-3 things you'd want us to look at if we were sitting across the table. Don't polish."></textarea>
-            </div>
+              <div class="field">
+                <label for="contact-capability">Capability area (if relevant)</label>
+                <select id="contact-capability" name="contact[Capability area]">
+                  <option value="">Select if known</option>
+                  <option>Brand</option>
+                  <option>Marketing</option>
+                  <option>Ecom</option>
+                  <option>Operations</option>
+                  <option>Product</option>
+                  <option>Custom</option>
+                  <option>More than one</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
 
-            <div class="submit-row">
-              <button class="btn ember no-arrow" type="submit">Send →</button>
-            </div>
-          </form>
+              <div class="field">
+                <label for="contact-body">What's on your mind?</label>
+                <textarea id="contact-body" name="contact[body]" placeholder="The 1-3 things you'd want us to look at if we were sitting across the table. Don't polish."></textarea>
+              </div>
+
+              <div class="submit-row">
+                <button class="btn ember no-arrow" type="submit">Send →</button>
+              </div>
+            {%- endif -%}
+          {%- endform -%}
         </div>
       </div>
     </div>

@@ -4,6 +4,8 @@
    Single shared stylesheet — every page links this one file.
    ========================================================================== */
 
+@import url('./tokens.css');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,350;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,350&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -949,8 +951,10 @@ img, svg { max-width: 100%; display: block; }
   font-size: clamp(40px, 5vw, 64px);
   line-height: 0.96;
   letter-spacing: -0.025em;
-  color: var(--lf-ember);
+  color: var(--lf-on-dark);
 }
+/* On light surfaces, swap to ink */
+.section:not(.dark):not(.black) .big-stat .val { color: var(--lf-ink); }
 .big-stat .label {
   font-family: var(--lf-mono);
   font-size: 11px;
