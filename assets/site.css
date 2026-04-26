@@ -609,6 +609,139 @@ img, svg { max-width: 100%; display: block; }
 }
 
 /* ==========================================================================
+   Founder cards (home page — scannable credits)
+   ========================================================================== */
+.founder-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+.founder-card {
+  border: 1px solid var(--lf-rule);
+  background: var(--lf-paper);
+  padding: 36px 36px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: border-color 220ms var(--lf-ease), transform 220ms var(--lf-ease);
+}
+.founder-card:hover {
+  border-color: var(--lf-graphite);
+}
+.founder-card header h3 {
+  font-family: var(--lf-serif);
+  font-weight: 400;
+  font-size: 28px;
+  letter-spacing: -0.01em;
+  color: var(--lf-ink);
+  margin-bottom: 6px;
+}
+.founder-card header .role {
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lf-graphite);
+}
+.founder-card .credit-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.founder-card .credit-list li {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 16px;
+  align-items: baseline;
+  padding: 14px 0;
+  border-top: 1px solid var(--lf-rule-quiet);
+}
+.founder-card .credit-list li:first-child { border-top: 0; padding-top: 0; }
+.founder-card .credit-list .num {
+  font-family: var(--lf-serif);
+  font-weight: 350;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  color: var(--lf-ember);
+  line-height: 1;
+}
+.founder-card .credit-list .line {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--lf-ink-soft);
+  text-wrap: pretty;
+}
+.founder-card .card-link {
+  align-self: flex-start;
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lf-ember);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  margin-top: 4px;
+}
+.founder-card .card-link:hover { color: var(--lf-ink); }
+
+/* ==========================================================================
+   Wall quote (the "hit the wall" pullquote band)
+   ========================================================================== */
+.wall-quote {
+  margin: 0 0 32px;
+  padding: 0;
+  border: 0;
+}
+.wall-quote p {
+  font-family: var(--lf-serif);
+  font-weight: 350;
+  font-size: clamp(28px, 3.6vw, 44px);
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  color: var(--lf-ink);
+  max-width: 920px;
+  text-wrap: balance;
+}
+.wall-quote em {
+  font-style: italic;
+  color: var(--lf-ember);
+}
+.wall-tags {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.wall-tags li {
+  font-family: var(--lf-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lf-graphite);
+  padding: 8px 14px;
+  border: 1px solid var(--lf-rule);
+  background: var(--lf-paper-deep);
+}
+.wall-bridge {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--lf-ink-soft);
+  max-width: 720px;
+}
+
+@media (max-width: 880px) {
+  .founder-cards { grid-template-columns: 1fr; gap: 20px; }
+  .founder-card { padding: 28px 24px 22px; }
+  .founder-card .credit-list li { grid-template-columns: 100px 1fr; gap: 12px; padding: 12px 0; }
+  .founder-card .credit-list .num { font-size: 18px; }
+}
+
+/* ==========================================================================
    CTA block (page closers)
    ========================================================================== */
 .cta-block {
