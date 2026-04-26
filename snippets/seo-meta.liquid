@@ -8,7 +8,8 @@
 {%- endcomment -%}
 
 {%- assign domain = 'https://lighterfluid.co' -%}
-{%- assign og_image = 'https://lighterfluid.co/cdn/shop/files/og-image.jpg' -%}
+{%- comment -%} og:image lives in theme assets so it's version-controlled. asset_url returns a protocol-relative URL (//cdn.shopify.com/...), force absolute https for OG/Twitter scrapers. {%- endcomment -%}
+{%- assign og_image = 'og-image.jpg' | asset_url | prepend: 'https:' -%}
 
 {%- liquid
   if template.name == 'index'
