@@ -50,48 +50,62 @@
 
 <header class="hero short toolkit-hero">
   <div class="container">
-    <span class="eyebrow"><span class="dot"></span> {{ eyebrow }}</span>
+    <div class="toolkit-hero__grid">
+      <div class="toolkit-hero__copy">
+        <span class="eyebrow"><span class="dot"></span> {{ eyebrow }}</span>
 
-    <h1>
-      {%- assign headline_lines = headline | newline_to_br | split: '<br />' -%}
-      {%- for line in headline_lines -%}
-        {%- assign trimmed = line | strip -%}
-        {%- if trimmed != '' -%}
-          {{ trimmed }}{% unless forloop.last %}<br/>{% endunless %}
-        {%- endif -%}
-      {%- endfor -%}
-    </h1>
+        <h1>
+          {%- assign headline_lines = headline | newline_to_br | split: '<br />' -%}
+          {%- for line in headline_lines -%}
+            {%- assign trimmed = line | strip -%}
+            {%- if trimmed != '' -%}
+              {{ trimmed }}{% unless forloop.last %}<br/>{% endunless %}
+            {%- endif -%}
+          {%- endfor -%}
+        </h1>
 
-    {% if subhead != blank %}
-      <p class="lede">{{ subhead }}</p>
-    {% endif %}
-
-    <div class="actions toolkit-hero__actions">
-      {% if is_available %}
-        {% if is_call %}
-          {% form 'product', product, class: 'toolkit-buy-form' %}
-            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
-            <button type="submit" class="btn ember">Book the call · {{ price_display }}</button>
-          {% endform %}
-        {% else %}
-          {% form 'product', product, class: 'toolkit-buy-form' %}
-            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
-            <button type="submit" class="btn ember">Buy · {{ price_display }}</button>
-          {% endform %}
+        {% if subhead != blank %}
+          <p class="lede">{{ subhead }}</p>
         {% endif %}
 
-        {% if lead_magnet_url != blank %}
-          <a class="btn ghost" href="{{ lead_magnet_url }}" target="_blank" rel="noopener">See the free overview (PDF)</a>
+        <div class="actions toolkit-hero__actions">
+          {% if is_available %}
+            {% if is_call %}
+              {% form 'product', product, class: 'toolkit-buy-form' %}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
+                <button type="submit" class="btn ember">Book the call · {{ price_display }}</button>
+              {% endform %}
+            {% else %}
+              {% form 'product', product, class: 'toolkit-buy-form' %}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
+                <button type="submit" class="btn ember">Buy · {{ price_display }}</button>
+              {% endform %}
+            {% endif %}
+
+            {% if lead_magnet_url != blank %}
+              <a class="btn ghost" href="{{ lead_magnet_url }}" target="_blank" rel="noopener">See the free overview (PDF)</a>
+            {% endif %}
+          {% else %}
+            <a class="btn ember" href="#notify">Notify me when it ships</a>
+            <span class="toolkit-hero__cs-meta">Coming {{ coming_soon_target | default: 'soon' }}</span>
+          {% endif %}
+        </div>
+
+        {% if is_available and price_display != blank %}
+          <p class="toolkit-hero__price-note">{{ price_display }}</p>
         {% endif %}
-      {% else %}
-        <a class="btn ember" href="#notify">Notify me when it ships</a>
-        <span class="toolkit-hero__cs-meta">Coming {{ coming_soon_target | default: 'soon' }}</span>
+      </div>
+
+      {% if product.featured_image %}
+        <div class="toolkit-hero__image">
+          <img
+            src="{{ product.featured_image | image_url: width: 1200 }}"
+            alt="{{ product.featured_image.alt | default: product.title | escape }}"
+            width="1200" height="1200"
+          />
+        </div>
       {% endif %}
     </div>
-
-    {% if is_available and price_display != blank %}
-      <p class="toolkit-hero__price-note">{{ price_display }}</p>
-    {% endif %}
   </div>
 </header>
 
@@ -259,6 +273,10 @@
 {%- comment -%} Page-specific styles. Inline because we don't want to bloat site.css for a single template. {%- endcomment -%}
 <style>
   .toolkit-hero h1 { text-wrap: balance; }
+  .toolkit-hero__grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: center; }
+  @media (max-width: 880px) { .toolkit-hero__grid { grid-template-columns: 1fr; gap: 32px; } }
+  .toolkit-hero__image { aspect-ratio: 1 / 1; max-width: 480px; width: 100%; margin-left: auto; border: 1px solid var(--lf-ink); overflow: hidden; }
+  .toolkit-hero__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .toolkit-hero__actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-top: 32px; }
   .toolkit-hero__cs-meta { font-family: var(--lf-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lf-graphite); }
   .toolkit-hero__price-note { margin-top: 16px; font-family: var(--lf-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lf-graphite); }

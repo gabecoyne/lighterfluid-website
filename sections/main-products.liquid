@@ -61,21 +61,33 @@
             assign p_target = mf.coming_soon_target
           -%}
           <a href="{{ product.url }}" class="toolkit-card toolkit-card--{{ p_avail }}">
-            <div class="toolkit-card__head">
-              <span class="toolkit-card__eyebrow">{{ p_eyebrow }}</span>
-              {% if p_avail == 'coming-soon' %}
-                <span class="toolkit-card__badge">Coming {{ p_target | default: 'soon' }}</span>
-              {% endif %}
+            {% if product.featured_image %}
+              <div class="toolkit-card__image">
+                <img
+                  src="{{ product.featured_image | image_url: width: 600 }}"
+                  alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                  loading="lazy"
+                  width="600" height="600"
+                />
+              </div>
+            {% endif %}
+            <div class="toolkit-card__body">
+              <div class="toolkit-card__head">
+                <span class="toolkit-card__eyebrow">{{ p_eyebrow }}</span>
+                {% if p_avail == 'coming-soon' %}
+                  <span class="toolkit-card__badge">Coming {{ p_target | default: 'soon' }}</span>
+                {% endif %}
+              </div>
+              <h3>{{ product.title }}</h3>
+              <p>{{ p_subhead }}</p>
+              <span class="toolkit-card__cta">
+                {% if p_avail == 'available' %}
+                  {{ p_price }} →
+                {% else %}
+                  Notify me →
+                {% endif %}
+              </span>
             </div>
-            <h3>{{ product.title }}</h3>
-            <p>{{ p_subhead }}</p>
-            <span class="toolkit-card__cta">
-              {% if p_avail == 'available' %}
-                {{ p_price }} →
-              {% else %}
-                Notify me →
-              {% endif %}
-            </span>
           </a>
         {% endfor %}
       </div>
@@ -160,8 +172,12 @@
   .toolkit-stripe__line .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--lf-ember); display: inline-block; }
 
   .toolkit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
-  .toolkit-card { display: flex; flex-direction: column; gap: 12px; padding: 32px; border: 1px solid var(--lf-ink); background: var(--lf-paper); transition: background 220ms var(--lf-ease), transform 220ms var(--lf-ease); position: relative; text-decoration: none; color: inherit; }
-  .toolkit-card:hover { background: var(--lf-paper-warm, #f5f1e8); transform: translateY(-2px); }
+  .toolkit-card { display: flex; flex-direction: column; gap: 0; padding: 0; border: 1px solid var(--lf-ink); background: var(--lf-paper); transition: background 220ms var(--lf-ease), transform 220ms var(--lf-ease); position: relative; text-decoration: none; color: inherit; overflow: hidden; }
+  .toolkit-card:hover { transform: translateY(-2px); }
+  .toolkit-card__image { width: 100%; aspect-ratio: 1 / 1; overflow: hidden; border-bottom: 1px solid var(--lf-ink); }
+  .toolkit-card__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .toolkit-card__body { display: flex; flex-direction: column; gap: 12px; padding: 28px 28px 28px; flex: 1; background: var(--lf-paper); transition: background 220ms var(--lf-ease); }
+  .toolkit-card:hover .toolkit-card__body { background: var(--lf-paper-warm, #f5f1e8); }
   .toolkit-card--coming-soon { opacity: 0.78; }
   .toolkit-card--coming-soon:hover { opacity: 1; }
   .toolkit-card__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
