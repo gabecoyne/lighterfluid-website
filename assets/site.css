@@ -1025,8 +1025,10 @@ img, svg { max-width: 100%; display: block; }
 
 @media (max-width: 720px) {
   .site-nav__inner {
+    flex-wrap: wrap;          /* lets the menu drop below the logo/CTA row */
     padding: 14px 20px;
-    gap: 12px;
+    column-gap: 12px;
+    row-gap: 0;               /* row 1 and the dropdown menu butt directly */
   }
   .site-nav .logo span:not(.mark):not(.label) {
     font-size: 17px;
@@ -1040,16 +1042,38 @@ img, svg { max-width: 100%; display: block; }
   .site-nav ul {
     display: none;
     order: 4;
-    flex-basis: 100%;
+    flex-basis: 100%;          /* full-width row when shown */
+    width: 100%;
     flex-direction: column;
+    align-items: stretch;
     gap: 0;
-    padding: 12px 0 8px;
+    padding: 8px 0 4px;
+    margin: 12px 0 0;
     border-top: 1px solid var(--lf-rule);
-    margin-top: 12px;
   }
   .site-nav ul.is-open { display: flex; }
-  .site-nav ul li { padding: 12px 0; }
-  .site-nav a.nav-link.is-active::after { display: none; }
+  .site-nav ul li {
+    padding: 0;
+    border-bottom: 1px solid var(--lf-rule-quiet);
+  }
+  .site-nav ul li:last-child { border-bottom: 0; }
+  .site-nav ul li a.nav-link {
+    display: block;
+    padding: 14px 4px;
+    width: 100%;
+    text-align: left;
+    font-size: 15px;
+    color: var(--lf-ink);
+  }
+  .site-nav a.nav-link.is-active { color: var(--lf-ember); }
+  .site-nav a.nav-link.is-active::after,
+  .site-nav a.nav-link.is-active::before { display: none; }
+  .site-nav ul li a.nav-link.is-active::before {
+    content: "→";
+    color: var(--lf-ember);
+    margin-right: 8px;
+    display: inline-block;
+  }
 }
 
 /* ==========================================================================
@@ -1096,6 +1120,27 @@ img, svg { max-width: 100%; display: block; }
   .site-footer__inner { grid-template-columns: 1fr; gap: 32px; }
   .site-footer { padding: 48px 24px 32px; }
   .site-footer__meta { padding: 24px; flex-direction: column; gap: 8px; align-items: flex-start; }
+
+  /* Full-width CTAs on mobile — buttons stack vertically and fill the column */
+  .hero .actions,
+  .cta-block .actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 10px;
+  }
+  .hero .actions .btn,
+  .cta-block .actions .btn,
+  .hero .actions .btn.ghost,
+  .cta-block .actions .btn.ghost,
+  .hero .actions .btn.ember,
+  .cta-block .actions .btn.ember {
+    width: 100%;
+    justify-content: center;
+    padding: 16px 20px;
+  }
+  .cta-block { grid-template-columns: 1fr; }
+  .cta-block .actions { margin-top: 16px; }
 }
 
 /* Larger tap targets for buttons + interactive elements on touch devices */
