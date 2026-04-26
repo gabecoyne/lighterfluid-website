@@ -736,6 +736,26 @@ img, svg { max-width: 100%; display: block; }
 }
 .founder-card .card-link:hover { color: var(--lf-ink); }
 
+/* About-page extension: bio paragraph + dual contact line */
+.founder-card .bio {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--lf-ink-soft);
+  margin: 0;
+  text-wrap: pretty;
+}
+.founder-card .bio + .bio { margin-top: 12px; }
+.founder-card .card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--lf-rule-quiet);
+  margin-top: 4px;
+}
+.founder-card .card-footer .card-link { margin-top: 0; }
+
 /* ==========================================================================
    Wall quote (the "hit the wall" pullquote band)
    ========================================================================== */
