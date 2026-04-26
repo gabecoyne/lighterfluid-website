@@ -737,8 +737,18 @@ img, svg { max-width: 100%; display: block; }
 @media (max-width: 880px) {
   .founder-cards { grid-template-columns: 1fr; gap: 20px; }
   .founder-card { padding: 28px 24px 22px; }
-  .founder-card .credit-list li { grid-template-columns: 100px 1fr; gap: 12px; padding: 12px 0; }
-  .founder-card .credit-list .num { font-size: 18px; }
+  .founder-card .credit-list li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 12px 0;
+  }
+  .founder-card .credit-list .num {
+    font-size: 17px;
+    line-height: 1.2;
+  }
+  .founder-card .credit-list .line {
+    font-size: 14.5px;
+  }
 }
 
 /* ==========================================================================
