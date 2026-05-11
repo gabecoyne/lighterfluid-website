@@ -37,7 +37,7 @@
         </div>
 
         <div>
-          {%- form 'contact', class: 'form' -%}
+          {%- form 'contact', class: 'form', id: 'lf-skill-setup-form' -%}
             {%- if form.posted_successfully? -%}
               <div style="padding:32px 28px;border:1px solid var(--lf-ember);background:var(--lf-ember-soft);">
                 <span class="eyebrow" style="color:var(--lf-ember);"><span class="dot"></span> Sent</span>
@@ -110,9 +110,35 @@
                 <textarea id="contact-body" name="contact[body]" placeholder="What you've already tried, where it's stuck, what you'd want the skill doing by end of the session."></textarea>
               </div>
 
+              {%- comment -%} Spam protection — see main-contact.liquid for the same pattern {%- endcomment -%}
+              <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+                <label for="skill-setup-website">Leave this field empty</label>
+                <input id="skill-setup-website" name="contact[website]" type="text" tabindex="-1" autocomplete="off" />
+              </div>
+              <input id="lf-skill-setup-ts" type="hidden" name="contact[ts]" value="" />
+
               <div class="submit-row">
                 <button class="btn ember no-arrow" type="submit">Send inquiry →</button>
               </div>
+
+              <script>
+                (function () {
+                  var form = document.getElementById('lf-skill-setup-form');
+                  if (!form) return;
+                  var ts = document.getElementById('lf-skill-setup-ts');
+                  var loadedAt = Date.now();
+                  if (ts) ts.value = String(loadedAt);
+                  form.addEventListener('submit', function (e) {
+                    var hp = form.querySelector('input[name="contact[website]"]');
+                    var elapsed = Date.now() - loadedAt;
+                    if ((hp && hp.value) || elapsed < 3000) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      return false;
+                    }
+                  });
+                })();
+              </script>
             {%- endif -%}
           {%- endform -%}
         </div>

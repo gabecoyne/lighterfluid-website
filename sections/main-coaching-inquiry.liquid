@@ -32,7 +32,7 @@
         </div>
 
         <div>
-          {%- form 'contact', class: 'form' -%}
+          {%- form 'contact', class: 'form', id: 'lf-coaching-form' -%}
             {%- if form.posted_successfully? -%}
               <div style="padding:32px 28px;border:1px solid var(--lf-ember);background:var(--lf-ember-soft);">
                 <span class="eyebrow" style="color:var(--lf-ember);"><span class="dot"></span> Sent</span>
@@ -121,9 +121,35 @@
                 <textarea id="contact-body" name="contact[body]" placeholder="The 1–3 things you'd want unstuck in the next 90 days. Don't polish."></textarea>
               </div>
 
+              {%- comment -%} Spam protection — see main-contact.liquid for the same pattern {%- endcomment -%}
+              <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+                <label for="coaching-website">Leave this field empty</label>
+                <input id="coaching-website" name="contact[website]" type="text" tabindex="-1" autocomplete="off" />
+              </div>
+              <input id="lf-coaching-ts" type="hidden" name="contact[ts]" value="" />
+
               <div class="submit-row">
                 <button class="btn ember no-arrow" type="submit">Send inquiry →</button>
               </div>
+
+              <script>
+                (function () {
+                  var form = document.getElementById('lf-coaching-form');
+                  if (!form) return;
+                  var ts = document.getElementById('lf-coaching-ts');
+                  var loadedAt = Date.now();
+                  if (ts) ts.value = String(loadedAt);
+                  form.addEventListener('submit', function (e) {
+                    var hp = form.querySelector('input[name="contact[website]"]');
+                    var elapsed = Date.now() - loadedAt;
+                    if ((hp && hp.value) || elapsed < 3000) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      return false;
+                    }
+                  });
+                })();
+              </script>
             {%- endif -%}
           {%- endform -%}
         </div>
