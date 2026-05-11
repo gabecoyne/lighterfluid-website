@@ -30,14 +30,6 @@
           </div>
 
           <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--lf-rule);">
-            <span class="eyebrow"><span class="dot"></span> Or email directly</span>
-            <p style="margin-top:18px;font-family:var(--lf-serif);font-size:18px;line-height:1.6;">
-              <a class="inline-link" href="mailto:gabe@lighterfluid.co">gabe@lighterfluid.co</a><br />
-              <a class="inline-link" href="mailto:collin@lighterfluid.co">collin@lighterfluid.co</a>
-            </p>
-          </div>
-
-          <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--lf-rule);">
             <span class="eyebrow"><span class="dot"></span> Engagement minimums</span>
             <p style="margin-top:18px;font-size:14px;line-height:1.65;color:var(--lf-graphite);max-width:380px;">
               Implementations start at $10K/mo for 90 days. Coaching is $4K/mo, 10 slots. We don't run on hourly billing. We're consumer / DTC focused and won't take work in regulated industries (healthcare, financial services, manufacturing) unless you have a strong operator already inside.
@@ -52,7 +44,7 @@
             Custom fields (Company, Role, Revenue, Interest, Capability) are
             included in the email body labeled by their field name.
           {%- endcomment -%}
-          {%- form 'contact', class: 'form' -%}
+          {%- form 'contact', class: 'form', id: 'lf-contact-form' -%}
             {%- if form.posted_successfully? -%}
               <div style="padding:32px 28px;border:1px solid var(--lf-ember);background:var(--lf-ember-soft);">
                 <span class="eyebrow" style="color:var(--lf-ember);"><span class="dot"></span> Sent</span>
@@ -138,9 +130,43 @@
                 <textarea id="contact-body" name="contact[body]" placeholder="The 1-3 things you'd want us to look at if we were sitting across the table. Don't polish."></textarea>
               </div>
 
+              {%- comment -%}
+                Spam protection: honeypot field + time-trap.
+                - Honeypot ("website") is invisible to humans, irresistible to naive bots.
+                  If filled in, JS blocks submission.
+                - Time-trap blocks submissions that arrive in under 3 seconds.
+                Both run client-side because Shopify's native contact form has no
+                server-side custom validation hook. Catches the majority of scripted spam.
+              {%- endcomment -%}
+              <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+                <label for="contact-website">Leave this field empty</label>
+                <input id="contact-website" name="contact[website]" type="text" tabindex="-1" autocomplete="off" />
+              </div>
+              <input id="lf-form-ts" type="hidden" name="contact[ts]" value="" />
+
               <div class="submit-row">
                 <button class="btn ember no-arrow" type="submit">Send →</button>
               </div>
+
+              <script>
+                (function () {
+                  var form = document.getElementById('lf-contact-form');
+                  if (!form) return;
+                  var ts = document.getElementById('lf-form-ts');
+                  var loadedAt = Date.now();
+                  if (ts) ts.value = String(loadedAt);
+                  form.addEventListener('submit', function (e) {
+                    var hp = form.querySelector('input[name="contact[website]"]');
+                    var elapsed = Date.now() - loadedAt;
+                    if ((hp && hp.value) || elapsed < 3000) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      // Silent: don't tip off the bot. Real users won't ever hit this.
+                      return false;
+                    }
+                  });
+                })();
+              </script>
             {%- endif -%}
           {%- endform -%}
         </div>
